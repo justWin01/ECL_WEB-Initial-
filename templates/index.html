@@ -4,41 +4,118 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ECL_WEB-Initial</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {},
+      },
+    };
+  </script>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-slate-100 to-blue-100 text-gray-800">
+<body class="min-h-screen bg-gradient-to-br from-slate-100 to-blue-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition">
 
-  <!-- Header -->
-  <header class="text-center bg-white/80 backdrop-blur-md p-8 rounded-lg shadow mb-12 max-w-3xl mx-auto mt-6">
-    <h1 class="text-4xl font-bold text-gray-900">ECL_WEB-Initial</h1>
-    <p class="text-sm text-gray-500 mt-2">Your simple tool for exploring computer parts and saving favorites.</p>
+  <!-- Top Navigation Header -->
+  <header class="bg-white/90 dark:bg-gray-800/80 backdrop-blur sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-6 py-4 gap-4">
+
+      <!-- Title -->
+      <div class="text-xl font-bold text-gray-800 dark:text-white">
+        ECL_WEB
+      </div>
+
+      <!-- Search Bar -->
+      <form method="GET" class="flex-1 max-w-xl w-full">
+        <input type="text" name="search" placeholder="Search devices..."
+          class="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm
+                 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+      </form>
+
+      <!-- Right Menu + Filter -->
+      <div class="flex flex-col sm:flex-row items-center gap-4 text-sm text-gray-700 dark:text-gray-200">
+        <!-- Nav Links -->
+        <nav class="flex gap-4 items-center font-medium">
+          <a href="/" class="hover:text-indigo-500 transition">Home</a>
+          <a href="/?favorites=1" class="hover:text-indigo-500 transition">Favorites</a>
+          <button onclick="document.documentElement.classList.toggle('dark')"
+            class="bg-gray-200 dark:bg-gray-600 text-xs px-2 py-1 rounded hover:shadow">
+            🌙
+          </button>
+      <!-- Profile Button Dropdown -->
+  <div class="relative">
+    <button id="profileBtn" onclick="toggleProfileMenu()"
+      class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-300 dark:bg-gray-600 focus:outline-none">
+      <svg class="w-5 h-5 text-gray-800 dark:text-gray-200" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M10 10a4 4 0 100-8 4 4 0 000 8zm-8 8a8 8 0 1116 0H2z" />
+      </svg>
+    </button>
+
+    <!-- Dropdown menu -->
+    <div id="profileMenu"
+         class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded shadow-md z-50 text-sm">
+      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Change Profile</a>
+      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Change Password</a>
+      <a href="#" class="block px-4 py-2 text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-600">Sign Out</a>
+    </div>
+  </div>
+    </nav>
+  </div>
+        </nav>
+      </div>
+    </div>
   </header>
 
   <!-- Device Grid -->
-  <main class="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  <main class="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
     {% for device in devices %}
-    <div class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow hover:shadow-md transition">
       <div class="flex items-center justify-between mb-2">
-        <h2 class="text-lg font-semibold text-gray-900">{{ device.name }}</h2>
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ device.name }}</h2>
         <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full">{{ device.type }}</span>
       </div>
-      <p class="text-sm text-gray-600">{{ device.specs }}</p>
+      <p class="text-sm text-gray-600 dark:text-gray-300">{{ device.specs }}</p>
       <p class="text-base font-bold text-emerald-500 mt-2">{{ device.price }}</p>
-      <form action="{{ url_for('favorite', device_id=device.id) }}" method="POST" class="mt-4">
-        <button type="submit"
-          class="px-4 py-2 rounded text-sm font-medium transition
-          {{ 'bg-red-500 text-white hover:bg-red-600' if device.is_favorite else 'bg-gray-200 text-gray-700 hover:bg-gray-300' }}">
-          {{ '★ Favorited' if device.is_favorite else '☆ Add to Favorites' }}
+      <div class="mt-4 flex gap-2">
+        <form action="{{ url_for('favorite', device_id=device.id) }}" method="POST">
+          <button type="submit"
+            class="px-4 py-2 rounded text-sm font-medium transition
+            {{ 'bg-red-500 text-white hover:bg-red-600' if device.is_favorite else 'bg-gray-200 text-gray-700 hover:bg-gray-300' }}">
+            {{ '★ Favorited' if device.is_favorite else '☆ Add to Favorites' }}
+          </button>
+        </form>
+        <button
+          onclick="alert('Buying {{ device.name }}...')"
+          class="px-4 py-2 bg-indigo-500 text-white rounded text-sm font-medium hover:bg-indigo-600 transition">
+          Buy
         </button>
-      </form>
+      </div>
     </div>
     {% endfor %}
   </main>
 
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-emerald-500 text-white px-4 py-2 rounded shadow-lg hidden transition duration-300">
+    Device updated!
+  </div>
+
   <!-- Footer -->
-  <footer class="text-center text-sm text-gray-400 mt-16">
+  <footer class="text-center text-sm text-gray-400 mt-32">
     &copy; 2025 ECL_WEB-Initial | All rights reserved.
   </footer>
 
+  <!-- Toast JS -->
+  <script>
+    const toast = document.getElementById('toast');
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('favorited')) {
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 3000);
+    }
+  </script>
+
+  <!-- Main External JS -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
+
