@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ECL_WEB-Initial</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>ECL_WEB-Initial</h1>
+    <p>Your simple tool for exploring computer parts and saving favorites.</p>
+  </header>
+
+  <main class="grid-container">
+    {% for device in devices %}
+    <div class="card">
+      <div class="card-header">
+        <h2>{{ device.name }}</h2>
+        <span class="type">{{ device.type }}</span>
+      </div>
+      <p class="specs">{{ device.specs }}</p>
+      <p class="price">{{ device.price }}</p>
+      <form action="{{ url_for('favorite', device_id=device.id) }}" method="POST">
+        <button class="fav-btn {{ 'active' if device.is_favorite else '' }}">
+          {{ '★ Favorited' if device.is_favorite else '☆ Add to Favorites' }}
+        </button>
+      </form>
+    </div>
+    {% endfor %}
+  </main>
+
+  <footer>
+    <p>&copy; 2025 ECL_WEB-Initial | All rights reserved.</p>
+  </footer>
+</body>
+</html>
