@@ -4,25 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ECL_WEB-Initial</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <header>
-    <h1>ECL_WEB-Initial</h1>
-    <p>Your simple tool for exploring computer parts and saving favorites.</p>
+<body class="min-h-screen bg-gradient-to-br from-slate-100 to-blue-100 text-gray-800">
+
+  <!-- Header -->
+  <header class="text-center bg-white/80 backdrop-blur-md p-8 rounded-lg shadow mb-12 max-w-3xl mx-auto mt-6">
+    <h1 class="text-4xl font-bold text-gray-900">ECL_WEB-Initial</h1>
+    <p class="text-sm text-gray-500 mt-2">Your simple tool for exploring computer parts and saving favorites.</p>
   </header>
 
-  <main class="grid-container">
+  <!-- Device Grid -->
+  <main class="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     {% for device in devices %}
-    <div class="card">
-      <div class="card-header">
-        <h2>{{ device.name }}</h2>
-        <span class="type">{{ device.type }}</span>
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
+      <div class="flex items-center justify-between mb-2">
+        <h2 class="text-lg font-semibold text-gray-900">{{ device.name }}</h2>
+        <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full">{{ device.type }}</span>
       </div>
-      <p class="specs">{{ device.specs }}</p>
-      <p class="price">{{ device.price }}</p>
-      <form action="{{ url_for('favorite', device_id=device.id) }}" method="POST">
-        <button class="fav-btn {{ 'active' if device.is_favorite else '' }}">
+      <p class="text-sm text-gray-600">{{ device.specs }}</p>
+      <p class="text-base font-bold text-emerald-500 mt-2">{{ device.price }}</p>
+      <form action="{{ url_for('favorite', device_id=device.id) }}" method="POST" class="mt-4">
+        <button type="submit"
+          class="px-4 py-2 rounded text-sm font-medium transition
+          {{ 'bg-red-500 text-white hover:bg-red-600' if device.is_favorite else 'bg-gray-200 text-gray-700 hover:bg-gray-300' }}">
           {{ '★ Favorited' if device.is_favorite else '☆ Add to Favorites' }}
         </button>
       </form>
@@ -30,8 +35,10 @@
     {% endfor %}
   </main>
 
-  <footer>
-    <p>&copy; 2025 ECL_WEB-Initial | All rights reserved.</p>
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-400 mt-16">
+    &copy; 2025 ECL_WEB-Initial | All rights reserved.
   </footer>
+
 </body>
 </html>
