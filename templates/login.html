@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - ECL_WEB</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {},
+      },
+    };
+  </script>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-100 dark:from-gray-900 dark:to-gray-800 transition">
+
+  <!-- Dark mode toggle -->
+  <button onclick="document.documentElement.classList.toggle('dark')"
+    class="absolute top-4 right-4 bg-gray-200 dark:bg-gray-700 text-xs px-3 py-1 rounded-full text-gray-700 dark:text-gray-300 shadow">
+    🌙 Dark Mode
+  </button>
+
+  <div class="bg-white dark:bg-gray-900 shadow-2xl rounded-xl p-8 w-full max-w-sm mx-4 transition">
+    
+    <!-- Logo -->
+    <div class="text-center mb-6">
+      <img src="https://via.placeholder.com/60" class="mx-auto w-16 h-16 rounded-full shadow" />
+      <div class="text-xl font-extrabold text-gray-700 dark:text-gray-300 mt-2">ECL_WEB</div>
+
+      <p class="text-gray-500 dark:text-gray-400 text-sm">Login to your account</p>
+    </div>
+
+    <form method="POST" class="space-y-4">
+      
+      {% if error %}
+        <div class="text-red-600 text-sm text-center bg-red-100 dark:bg-red-800 dark:text-red-200 px-3 py-2 rounded">
+          {{ error }}
+        </div>
+      {% endif %}
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+        <input type="email" name="email" required
+          class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 shadow-sm focus:ring-2 focus:ring-indigo-400 focus:outline-none" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+        <input type="password" name="password" required
+          class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 shadow-sm focus:ring-2 focus:ring-indigo-400 focus:outline-none" />
+      </div>
+
+      <div class="flex justify-between text-sm">
+        <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Forgot password?</a>
+        <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Create an account</a>
+      </div>
+
+      <button type="submit"
+        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg transition shadow-md font-semibold mt-2">
+        Log In
+      </button>
+    </form>
+
+    <!-- Optional Footer -->
+    <p class="text-xs text-gray-400 dark:text-gray-500 text-center mt-6">
+      &copy; 2025 ECL_WEB — All rights reserved.
+    </p>
+  </div>
+
+</body>
+</html>

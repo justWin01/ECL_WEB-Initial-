@@ -16,23 +16,23 @@
 </head>
 <body class="min-h-screen bg-gradient-to-br from-slate-100 to-blue-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition">
 
-  <!-- Top Navigation Header -->
+  <!-- Header -->
   <header class="bg-white/90 dark:bg-gray-800/80 backdrop-blur sticky top-0 z-50 shadow-sm">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-6 py-4 gap-4">
 
-      <!-- Title -->
+      <!-- Logo / Title -->
       <div class="text-xl font-bold text-gray-800 dark:text-white">
         ECL_WEB
       </div>
 
-      <!-- Search Bar -->
+      <!-- Search -->
       <form method="GET" class="flex-1 max-w-xl w-full">
         <input type="text" name="search" placeholder="Search devices..."
           class="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm
                  bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" />
       </form>
 
-      <!-- Right Menu + Filter -->
+      <!-- Nav -->
       <div class="flex flex-col sm:flex-row items-center gap-4 text-sm text-gray-700 dark:text-gray-200">
         <nav class="flex gap-4 items-center font-medium">
           <a href="/" class="hover:text-indigo-500 transition">Home</a>
@@ -51,29 +51,29 @@
               class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">0</span>
           </button>
 
-          <!-- Profile Button Dropdown -->
-          <div class="relative">
-            <button id="profileBtn" onclick="toggleProfileMenu()"
+          <!-- Profile Dropdown -->
+          <div class="relative z-50">
+            <button id="profileBtn" type="button" onclick="toggleProfileMenu(event)"
               class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-300 dark:bg-gray-600 focus:outline-none">
               <svg class="w-5 h-5 text-gray-800 dark:text-gray-200" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 10a4 4 0 100-8 4 4 0 000 8zm-8 8a8 8 0 1116 0H2z" />
               </svg>
             </button>
 
-            <!-- Dropdown menu -->
             <div id="profileMenu"
                  class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded shadow-md z-50 text-sm">
               <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Change Profile</a>
               <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Change Password</a>
-              <a href="#" class="block px-4 py-2 text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-600">Sign Out</a>
+              <a href="{{ url_for('logout') }}" class="block px-4 py-2 text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-600">Sign Out</a>
             </div>
           </div>
+
         </nav>
       </div>
     </div>
   </header>
 
-  <!-- Device Grid -->
+  <!-- Devices -->
   <main class="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
     {% for device in devices %}
     <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow hover:shadow-md transition">
@@ -82,9 +82,7 @@
         <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full">{{ device.type }}</span>
       </div>
 
-      <!-- Rating Example -->
       <div class="text-yellow-400 text-sm mb-1">★★★★★</div>
-
       <p class="text-sm text-gray-600 dark:text-gray-300">{{ device.specs }}</p>
       <p class="text-base font-bold text-emerald-500 mt-2">{{ device.price }}</p>
 
@@ -111,7 +109,7 @@
     {% endfor %}
   </main>
 
-  <!-- Toast Notification -->
+  <!-- Toast -->
   <div id="toast" class="fixed bottom-6 right-6 bg-emerald-500 text-white px-4 py-2 rounded shadow-lg hidden transition duration-300">
     Device updated!
   </div>
@@ -121,8 +119,9 @@
     &copy; 2025 ECL_WEB-Initial | All rights reserved.
   </footer>
 
-  <!-- Toast + Cart JS -->
+  <!-- JS Logic -->
   <script>
+    // Toast
     const toast = document.getElementById('toast');
     const params = new URLSearchParams(window.location.search);
     if (params.get('favorited')) {
@@ -130,6 +129,7 @@
       setTimeout(() => toast.classList.add('hidden'), 3000);
     }
 
+    // Cart
     let cartCount = 0;
     function addToCart(itemName) {
       cartCount++;
@@ -137,12 +137,28 @@
       alert(itemName + " added to cart!");
     }
 
-    function toggleProfileMenu() {
+    // Profile Dropdown
+    function toggleProfileMenu(event) {
+      event.stopPropagation();
       document.getElementById("profileMenu").classList.toggle("hidden");
     }
+
+    // Hide dropdown on outside click
+    window.addEventListener("click", function () {
+      const menu = document.getElementById("profileMenu");
+      if (!menu.classList.contains("hidden")) {
+        menu.classList.add("hidden");
+      }
+    });
+
+    // Prevent dropdown from closing on inside click
+    document.getElementById("profileMenu").addEventListener("click", function (e) {
+      e.stopPropagation();
+    });
   </script>
 
-  <!-- Main External JS -->
-  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <!-- Optional External JS -->
+  <!-- <script src="{{ url_for('static', filename='js/main.js') }}"></script> -->
+
 </body>
 </html>
