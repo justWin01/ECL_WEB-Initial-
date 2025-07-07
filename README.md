@@ -1,18 +1,18 @@
-# ECL_WEB-Initial
+🚀  ECL_MicroNet
+ ECL_MicroNet is an online platform designed to help users explore, organize, and manage a wide range of computer parts. Whether you're looking for a graphics card, processor, RAM, or storage device, the platform provides a centralized catalog for effortless browsing and purchasing.
 
-**ECL_WEB-Initial** is an online platform designed to help users explore and manage a wide range of computer parts. Whether you're looking for a graphics card, processor, RAM, or storage device, the platform provides an organized catalog of **all available devices** for easy browsing.
+✨ Key Features
+🔍 Browse all available computer parts in one centralized catalog
 
-## ✨ Key Features
+⭐ Add to Favorites for easy access and quick comparison
 
-- 🔍 View all available computer parts in one centralized catalog
-- ⭐ Add parts to a **favorites list** for easy access and comparison
-- ⚡ Simple, fast, and user-friendly interface
-- 🔧 Scalable design for growing inventory
+🛒 Add to Cart selected items for streamlined checkout
 
-## 📌 Purpose
+💳 Buy Now feature to purchase computer parts directly
 
-This platform is built for tech enthusiasts, PC builders, and users looking to organize and track computer components. With its streamlined interface and favorites feature, users can make more informed decisions without the hassle of tracking components manually.
+⚡ Simple, fast, and user-friendly interface
 
----
+🔧 Scalable design to support a growing inventory
 
-Feel free to contribute, fork, or suggest new features via pull requests or issues!
+📌 Purpose
+This platform is built for tech enthusiasts, PC builders, and users who want to efficiently organize and track computer components. With built-in shopping features like Cart and Buy Now,  ECL_MicroNet helps users move from research to purchase without ever leaving the site.
