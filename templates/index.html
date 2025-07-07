@@ -34,33 +34,40 @@
 
       <!-- Right Menu + Filter -->
       <div class="flex flex-col sm:flex-row items-center gap-4 text-sm text-gray-700 dark:text-gray-200">
-        <!-- Nav Links -->
         <nav class="flex gap-4 items-center font-medium">
           <a href="/" class="hover:text-indigo-500 transition">Home</a>
           <a href="/?favorites=1" class="hover:text-indigo-500 transition">Favorites</a>
           <button onclick="document.documentElement.classList.toggle('dark')"
-            class="bg-gray-200 dark:bg-gray-600 text-xs px-2 py-1 rounded hover:shadow">
-            🌙
-          </button>
-      <!-- Profile Button Dropdown -->
-  <div class="relative">
-    <button id="profileBtn" onclick="toggleProfileMenu()"
-      class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-300 dark:bg-gray-600 focus:outline-none">
-      <svg class="w-5 h-5 text-gray-800 dark:text-gray-200" fill="currentColor" viewBox="0 0 20 20">
-        <path d="M10 10a4 4 0 100-8 4 4 0 000 8zm-8 8a8 8 0 1116 0H2z" />
-      </svg>
-    </button>
+            class="bg-gray-200 dark:bg-gray-600 text-xs px-2 py-1 rounded hover:shadow">🌙</button>
 
-    <!-- Dropdown menu -->
-    <div id="profileMenu"
-         class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded shadow-md z-50 text-sm">
-      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Change Profile</a>
-      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Change Password</a>
-      <a href="#" class="block px-4 py-2 text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-600">Sign Out</a>
-    </div>
-  </div>
-    </nav>
-  </div>
+          <!-- Cart Icon -->
+          <button onclick="alert('Go to cart')"
+            class="relative w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-600 focus:outline-none">
+            <svg class="w-5 h-5 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6h12.4L17 13M7 13H5.4M17 13l1.6 6M6 21a1 1 0 100-2 1 1 0 000 2zm12 0a1 1 0 100-2 1 1 0 000 2z" />
+            </svg>
+            <span id="cartCount"
+              class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">0</span>
+          </button>
+
+          <!-- Profile Button Dropdown -->
+          <div class="relative">
+            <button id="profileBtn" onclick="toggleProfileMenu()"
+              class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-300 dark:bg-gray-600 focus:outline-none">
+              <svg class="w-5 h-5 text-gray-800 dark:text-gray-200" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 10a4 4 0 100-8 4 4 0 000 8zm-8 8a8 8 0 1116 0H2z" />
+              </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="profileMenu"
+                 class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded shadow-md z-50 text-sm">
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Change Profile</a>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Change Password</a>
+              <a href="#" class="block px-4 py-2 text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-600">Sign Out</a>
+            </div>
+          </div>
         </nav>
       </div>
     </div>
@@ -74,9 +81,14 @@
         <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ device.name }}</h2>
         <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full">{{ device.type }}</span>
       </div>
+
+      <!-- Rating Example -->
+      <div class="text-yellow-400 text-sm mb-1">★★★★★</div>
+
       <p class="text-sm text-gray-600 dark:text-gray-300">{{ device.specs }}</p>
       <p class="text-base font-bold text-emerald-500 mt-2">{{ device.price }}</p>
-      <div class="mt-4 flex gap-2">
+
+      <div class="mt-4 flex gap-2 flex-wrap">
         <form action="{{ url_for('favorite', device_id=device.id) }}" method="POST">
           <button type="submit"
             class="px-4 py-2 rounded text-sm font-medium transition
@@ -84,8 +96,13 @@
             {{ '★ Favorited' if device.is_favorite else '☆ Add to Favorites' }}
           </button>
         </form>
-        <button
-          onclick="alert('Buying {{ device.name }}...')"
+
+        <button onclick="addToCart('{{ device.name }}')"
+          class="px-4 py-2 bg-yellow-400 text-gray-900 rounded text-sm font-medium hover:bg-yellow-500 transition">
+          🛒 Add to Cart
+        </button>
+
+        <button onclick="alert('Buying {{ device.name }}...')"
           class="px-4 py-2 bg-indigo-500 text-white rounded text-sm font-medium hover:bg-indigo-600 transition">
           Buy
         </button>
@@ -104,7 +121,7 @@
     &copy; 2025 ECL_WEB-Initial | All rights reserved.
   </footer>
 
-  <!-- Toast JS -->
+  <!-- Toast + Cart JS -->
   <script>
     const toast = document.getElementById('toast');
     const params = new URLSearchParams(window.location.search);
@@ -112,10 +129,20 @@
       toast.classList.remove('hidden');
       setTimeout(() => toast.classList.add('hidden'), 3000);
     }
+
+    let cartCount = 0;
+    function addToCart(itemName) {
+      cartCount++;
+      document.getElementById('cartCount').textContent = cartCount;
+      alert(itemName + " added to cart!");
+    }
+
+    function toggleProfileMenu() {
+      document.getElementById("profileMenu").classList.toggle("hidden");
+    }
   </script>
 
   <!-- Main External JS -->
   <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
-
