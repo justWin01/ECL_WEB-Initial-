@@ -74,10 +74,13 @@
             {{ '★ Favorited' if device.is_favorite else '☆ Add to Favorites' }}
           </button>
         </form>
-        <button onclick="addToCart('{{ device.name }}')"
-          class="px-4 py-2 bg-yellow-400 text-gray-900 rounded text-sm font-medium hover:bg-yellow-500 transition">
-          🛒 Add to Cart
-        </button>
+        <form action="{{ url_for('add_to_cart', device_id=device.id) }}" method="POST">
+          <button type="submit"
+            class="px-4 py-2 bg-yellow-400 text-gray-900 rounded text-sm font-medium hover:bg-yellow-500 transition">
+            🛒 Add to Cart
+          </button>
+        </form>
+        
         <form action="{{ url_for('buy', device_id=device.id) }}" method="POST" onsubmit="return showLoading(this)">
           <button 
             class="px-4 py-2 bg-indigo-500 text-white rounded text-sm font-medium hover:bg-indigo-600 transition">

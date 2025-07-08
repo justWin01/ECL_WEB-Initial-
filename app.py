@@ -69,17 +69,15 @@ def cart():
         return redirect(url_for('login'))
     return render_template('cart.html', cart=session.get('cart', []))
 
-@app.route('/add_to_cart/<int:device_id>')
+@app.route('/add-to-cart/<int:device_id>', methods=['POST'])
 def add_to_cart(device_id):
-    if 'user' not in session:
-        return redirect(url_for('login'))
-    cart = session.get('cart', [])
-    for device in devices:
-        if device['id'] == device_id:
-            cart.append(device)
-            break
-    session['cart'] = cart
+    device = next((d for d in devices if d['id'] == device_id), None)
+    if device:
+        if 'cart' not in session:
+            session['cart'] = []
+        session['cart'].append(device)
     return redirect(url_for('cart'))
+
 
 @app.route('/buy/<int:device_id>', methods=['POST'])
 def buy(device_id):
