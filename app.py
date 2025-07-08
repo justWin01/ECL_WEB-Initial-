@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session
+from datetime import datetime
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here'  # Required for session handling
+app.secret_key = 'your_secret_key_here'
 
 # Sample device data
 devices = [
@@ -12,7 +13,7 @@ devices = [
     {"id": 5, "name": "ASUS ROG Strix B650E", "type": "Motherboard", "specs": "AM5, DDR5", "price": "₱13,999", "is_favorite": False}
 ]
 
-# Login credentials using emails
+# User login credentials
 USER_CREDENTIALS = {
     "admin@example.com": "admin123",
     "sherwin@example.com": "scl2025",
@@ -37,6 +38,8 @@ def login():
         password = request.form['password']
         if USER_CREDENTIALS.get(email) == password:
             session['user'] = email
+            session.setdefault('cart', [])
+            session.setdefault('orders', [])
             return redirect(url_for('home'))
         else:
             return render_template('login.html', error="Invalid email or password")
@@ -56,7 +59,62 @@ def favorite(device_id):
 @app.route('/logout')
 def logout():
     session.pop('user', None)
+    session.pop('cart', None)
+    session.pop('orders', None)
     return redirect(url_for('login'))
+
+@app.route('/cart')
+def cart():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    return render_template('cart.html', cart=session.get('cart', []))
+
+@app.route('/add_to_cart/<int:device_id>')
+def add_to_cart(device_id):
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    cart = session.get('cart', [])
+    for device in devices:
+        if device['id'] == device_id:
+            cart.append(device)
+            break
+    session['cart'] = cart
+    return redirect(url_for('cart'))
+
+@app.route('/buy/<int:device_id>', methods=['POST'])
+def buy(device_id):
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    for device in devices:
+        if device['id'] == device_id:
+            orders = session.get('orders', [])
+            new_order = {
+                'id': len(orders) + 1,
+                'date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                'items': [device],
+                'total': device['price']
+            }
+            orders.append(new_order)
+            session['orders'] = orders
+            break
+    return redirect(url_for('orders'))
+
+@app.route('/orders')
+def orders():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    return render_template('orders.html', orders=session.get('orders', []))
+
+@app.route('/cancel_order/<int:order_id>', methods=['POST'])
+def cancel_order(order_id):
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    orders = session.get('orders', [])
+    updated_orders = [order for order in orders if order['id'] != order_id]
+    session['orders'] = updated_orders
+    return redirect(url_for('orders'))
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Orders</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+</head>
+<body class="bg-slate-100 text-gray-800 min-h-screen">
+
+  <header class="bg-gray-600 text-white py-4 px-6 shadow w-full flex justify-between items-center">
+    <h1 class="text-2xl font-bold flex items-center gap-2">
+      📦 My Orders
+      {% if orders %}
+        <span class="bg-white text-indigo-600 text-xs font-semibold px-2 py-1 rounded-full">{{ orders|length }} order{{ 's' if orders|length > 1 }}</span>
+      {% endif %}
+    </h1>
+    <a href="{{ url_for('home') }}" class="bg-white text-indigo-600 text-sm px-4 py-2 rounded hover:bg-indigo-100 transition">🏠 Back to Home</a>
+  </header>
+
+  <main class="p-6 flex flex-col items-center">
+    <div class="w-full max-w-3xl bg-white rounded-lg shadow p-6 mt-6">
+      {% if orders %}
+        {% for order in orders %}
+          <div class="border rounded-lg p-5 mb-5 bg-slate-50">
+            <div class="flex justify-between items-center mb-2">
+              <div>
+                <h2 class="text-lg font-semibold text-gray-800">Order #{{ order.id }}</h2>
+                <p class="text-xs text-gray-500">{{ order.date }}</p>
+              </div>
+              <form method="POST" action="{{ url_for('cancel_order', order_id=order.id) }}">
+                <button type="submit"
+                        onclick="return confirm('Are you sure you want to cancel this order?')"
+                        class="text-sm text-red-600 hover:underline hover:text-red-800 transition">
+                  ❌ Cancel Order
+                </button>
+              </form>
+            </div>
+
+            <ul class="list-disc ml-6 text-sm text-gray-700 space-y-1 mb-3">
+              {% for item in order['items'] %}
+                <li>
+                  <span class="font-medium">{{ item.name }}</span> — 
+                  <span class="text-gray-500">{{ item.price }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+
+            <div class="flex justify-between items-center">
+              <div class="text-green-600 font-bold text-sm">Total: {{ order.total }}</div>
+              <div class="text-xs text-gray-500 italic">Status: <span class="text-blue-500">Processing</span></div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="text-center py-20">
+          <p class="text-gray-600 text-xl mb-4">😔 You have no orders yet.</p>
+          <a href="{{ url_for('home') }}"
+             class="inline-block bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition">
+            🛒 Shop Now
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </main>
+
+</body>
+</html>

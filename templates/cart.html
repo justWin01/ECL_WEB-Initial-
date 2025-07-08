@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart - ECL_MicroNet</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-100 to-blue-100 text-gray-800 dark:bg-gray-900 dark:text-white transition">
+
+  <div class="max-w-4xl mx-auto px-6 py-10">
+    <h1 class="text-3xl font-bold mb-6">🛒 Your Cart</h1>
+
+    {% if cart %}
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+        <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+          {% for item in cart %}
+          <li class="flex justify-between items-center px-6 py-4">
+            <div>
+              <h2 class="text-lg font-semibold">{{ item.name }}</h2>
+              <p class="text-sm text-gray-500 dark:text-gray-400">{{ item.price }}</p>
+            </div>
+            <form method="POST" action="/remove-from-cart/{{ loop.index0 }}">
+              <button type="submit" class="text-red-500 hover:text-red-700">Remove</button>
+            </form>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="mt-6 flex justify-between items-center">
+        <a href="/" class="text-indigo-600 hover:underline">← Continue Shopping</a>
+        <form method="POST" action="/checkout">
+          <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700 shadow">Checkout</button>
+        </form>
+      </div>
+    {% else %}
+      <p class="text-gray-600 dark:text-gray-400 mb-6">Your cart is currently empty.</p>
+      <a href="/" class="inline-block bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700 shadow">Browse Devices</a>
+    {% endif %}
+  </div>
+
+</body>
+</html>
