@@ -19,7 +19,7 @@
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-6 py-4 gap-4">
       <div class="text-xl font-bold text-gray-800 dark:text-white">ECL_MicroNet</div>
       <form method="GET" class="flex-1 max-w-xl w-full">
-        <input type="text" name="search" placeholder="Search devices..."
+        <input type="text" name="search" placeholder="Search categories..."
           class="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" />
       </form>
       <div class="flex flex-col sm:flex-row items-center gap-4 text-sm text-gray-700 dark:text-gray-200">
@@ -56,79 +56,26 @@
     </div>
   </header>
 
-  <!-- Devices -->
+  <!-- Categories -->
   <main class="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-    {% for device in devices %}
+    {% for category in categories %}
     <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow hover:shadow-md transition">
-      <div class="flex items-center justify-between mb-2">
-        <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ device.name }}</h2>
-        <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full">{{ device.type }}</span>
-      </div>
-      <div class="text-yellow-400 text-sm mb-1">★★★★★</div>
-      <p class="text-sm text-gray-600 dark:text-gray-300">{{ device.specs }}</p>
-      <p class="text-base font-bold text-emerald-500 mt-2">{{ device.price }}</p>
-      <div class="mt-4 flex gap-2 flex-wrap">
-        <form action="{{ url_for('favorite', device_id=device.id) }}" method="POST">
-          <button type="submit"
-            class="px-4 py-2 rounded text-sm font-medium transition {{ 'bg-red-500 text-white hover:bg-red-600' if device.is_favorite else 'bg-gray-200 text-gray-700 hover:bg-gray-300' }}">
-            {{ '★ Favorited' if device.is_favorite else '☆ Add to Favorites' }}
-          </button>
-        </form>
-        <form action="{{ url_for('add_to_cart', device_id=device.id) }}" method="POST">
-          <button type="submit"
-            class="px-4 py-2 bg-yellow-400 text-gray-900 rounded text-sm font-medium hover:bg-yellow-500 transition">
-            🛒 Add to Cart
-          </button>
-        </form>
-        
-        <form action="{{ url_for('buy', device_id=device.id) }}" method="POST" onsubmit="return showLoading(this)">
-          <button 
-            class="px-4 py-2 bg-indigo-500 text-white rounded text-sm font-medium hover:bg-indigo-600 transition">
-            Buy
-          </button>
-        </form>
-      </div>
+      <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ category.name }}</h2>
+      <p class="text-sm text-gray-600 dark:text-gray-300">{{ category.description }}</p>
+      <a href="{{ url_for('view_category', category_id=category.id) }}"
+         class="mt-4 inline-block px-4 py-2 bg-indigo-500 text-white rounded text-sm font-medium hover:bg-indigo-600 transition">
+         🔍 View Devices
+      </a>
     </div>
     {% endfor %}
   </main>
-
-  <!-- Toast -->
-  <div id="toast" class="fixed bottom-6 right-6 bg-emerald-500 text-white px-4 py-2 rounded shadow-lg hidden transition duration-300">
-    Device updated!
-  </div>
-
-  <!-- Loading Modal -->
-  <div id="loadingModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-    <div class="bg-white px-6 py-4 rounded shadow text-center">
-      <p class="text-lg font-semibold mb-2">Processing your order...</p>
-      <div class="loader border-t-4 border-blue-500 border-solid rounded-full w-8 h-8 animate-spin mx-auto"></div>
-    </div>
-  </div>
 
   <!-- Footer -->
   <footer class="text-center text-sm text-gray-400 mt-32">
     &copy; 2025 ECL_WEB-Initial | All rights reserved.
   </footer>
 
-  <!-- JavaScript Logic -->
   <script>
-    // Toast
-    const toast = document.getElementById('toast');
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('favorited')) {
-      toast.classList.remove('hidden');
-      setTimeout(() => toast.classList.add('hidden'), 3000);
-    }
-
-    // Cart
-    let cartCount = 0;
-    function addToCart(itemName) {
-      cartCount++;
-      document.getElementById('cartCount').textContent = cartCount;
-      alert(itemName + " added to cart!");
-    }
-
-    // Profile Menu
     function toggleProfileMenu(event) {
       event.stopPropagation();
       document.getElementById("profileMenu").classList.toggle("hidden");
@@ -142,25 +89,6 @@
     document.getElementById("profileMenu").addEventListener("click", function (e) {
       e.stopPropagation();
     });
-
-    // Buy Loading Handler
-    function showLoading(form) {
-      document.getElementById('loadingModal').classList.remove('hidden');
-      setTimeout(() => form.submit(), 800); // 1.2 second delay
-      return false;
-    }
   </script>
-
-  <style>
-    .loader {
-      border-width: 4px;
-      border-right-color: transparent;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-  </style>
-
 </body>
 </html>

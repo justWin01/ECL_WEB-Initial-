@@ -4,16 +4,23 @@ from datetime import datetime
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
 
-# Sample device data
-devices = [
-    {"id": 1, "name": "NVIDIA RTX 4070", "type": "Graphics Card", "specs": "12GB GDDR6X", "price": "₱33,999", "is_favorite": False},
-    {"id": 2, "name": "Intel i7-13700K", "type": "Processor", "specs": "16-Core, 24-Thread", "price": "₱22,499", "is_favorite": False},
-    {"id": 3, "name": "Corsair Vengeance 16GB", "type": "RAM", "specs": "DDR5 5600MHz", "price": "₱4,999", "is_favorite": False},
-    {"id": 4, "name": "Samsung 980 PRO 1TB", "type": "SSD", "specs": "PCIe 4.0 NVMe", "price": "₱7,299", "is_favorite": False},
-    {"id": 5, "name": "ASUS ROG Strix B650E", "type": "Motherboard", "specs": "AM5, DDR5", "price": "₱13,999", "is_favorite": False}
+# Sample category and device data
+categories = [
+    {"id": 1, "name": "Graphics Cards", "description": "High-performance GPUs for gaming and creative work."},
+    {"id": 2, "name": "Processors", "description": "Latest generation CPUs from Intel and AMD."},
+    {"id": 3, "name": "Memory (RAM)", "description": "DDR4 and DDR5 memory modules."},
+    {"id": 4, "name": "Storage", "description": "Fast and reliable SSDs and HDDs."},
+    {"id": 5, "name": "Motherboards", "description": "Compatible boards for Intel and AMD builds."}
 ]
 
-# User login credentials
+devices = [
+    {"id": 1, "name": "NVIDIA RTX 4070", "type": "Graphics Card", "specs": "12GB GDDR6X", "price": "\u20b133,999", "is_favorite": False, "category_id": 1},
+    {"id": 2, "name": "Intel i7-13700K", "type": "Processor", "specs": "16-Core, 24-Thread", "price": "\u20b122,499", "is_favorite": False, "category_id": 2},
+    {"id": 3, "name": "Corsair Vengeance 16GB", "type": "RAM", "specs": "DDR5 5600MHz", "price": "\u20b14,999", "is_favorite": False, "category_id": 3},
+    {"id": 4, "name": "Samsung 980 PRO 1TB", "type": "SSD", "specs": "PCIe 4.0 NVMe", "price": "\u20b17,299", "is_favorite": False, "category_id": 4},
+    {"id": 5, "name": "ASUS ROG Strix B650E", "type": "Motherboard", "specs": "AM5, DDR5", "price": "\u20b113,999", "is_favorite": False, "category_id": 5}
+]
+
 USER_CREDENTIALS = {
     "admin@example.com": "admin123",
     "sherwin@example.com": "scl2025",
@@ -24,12 +31,19 @@ USER_CREDENTIALS = {
 def home():
     if 'user' not in session:
         return redirect(url_for('login'))
+    return render_template("home.html", categories=categories)
 
-    show_favorites = request.args.get('favorites') == '1'
-    filtered_devices = [d for d in devices if d['is_favorite']] if show_favorites else devices
-    just_favorited = request.args.get('favorited') == '1'
+@app.route('/category/<int:category_id>')
+def view_category(category_id):
+    if 'user' not in session:
+        return redirect(url_for('login'))
 
-    return render_template("home.html", devices=filtered_devices, just_favorited=just_favorited)
+    selected_category = next((c for c in categories if c['id'] == category_id), None)
+    if not selected_category:
+        return "Category not found", 404
+
+    filtered_devices = [d for d in devices if d['category_id'] == category_id]
+    return render_template("category_view.html", category=selected_category, devices=filtered_devices)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -45,16 +59,15 @@ def login():
             return render_template('login.html', error="Invalid email or password")
     return render_template('login.html')
 
-@app.route("/favorite/<int:device_id>", methods=["POST"])
+@app.route('/favorite/<int:device_id>', methods=['POST'])
 def favorite(device_id):
     if 'user' not in session:
         return redirect(url_for('login'))
-
     for device in devices:
-        if device["id"] == device_id:
-            device["is_favorite"] = not device["is_favorite"]
+        if device['id'] == device_id:
+            device['is_favorite'] = not device['is_favorite']
             break
-    return redirect(url_for("home", favorited=1))
+    return redirect(request.referrer or url_for('home'))
 
 @app.route('/logout')
 def logout():
@@ -71,6 +84,8 @@ def cart():
 
 @app.route('/add-to-cart/<int:device_id>', methods=['POST'])
 def add_to_cart(device_id):
+    if 'user' not in session:
+        return redirect(url_for('login'))
     device = next((d for d in devices if d['id'] == device_id), None)
     if device:
         if 'cart' not in session:
@@ -78,12 +93,10 @@ def add_to_cart(device_id):
         session['cart'].append(device)
     return redirect(url_for('cart'))
 
-
 @app.route('/buy/<int:device_id>', methods=['POST'])
 def buy(device_id):
     if 'user' not in session:
         return redirect(url_for('login'))
-
     for device in devices:
         if device['id'] == device_id:
             orders = session.get('orders', [])
@@ -108,11 +121,10 @@ def orders():
 def cancel_order(order_id):
     if 'user' not in session:
         return redirect(url_for('login'))
-
     orders = session.get('orders', [])
     updated_orders = [order for order in orders if order['id'] != order_id]
     session['orders'] = updated_orders
     return redirect(url_for('orders'))
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)

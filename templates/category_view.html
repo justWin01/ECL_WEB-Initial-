@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{ category.name }} - ECL_MicroNet</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+</head>
+<body class="min-h-screen bg-slate-100 text-gray-800 p-6 dark:bg-gray-900 dark:text-white">
+
+  <!-- Header -->
+  <!-- Header -->
+<header class="bg-white/90 dark:bg-gray-800/80 backdrop-blur sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-6 py-4 gap-4">
+      <div class="text-xl font-bold text-gray-800 dark:text-white">ECL_MicroNet</div>
+      
+      <form method="GET" class="flex-1 max-w-xl w-full">
+        <input type="text" name="search" placeholder="Search categories..."
+          class="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+      </form>
+      
+      <div class="flex items-center gap-4">
+        <button onclick="document.documentElement.classList.toggle('dark')"
+            class="bg-gray-200 dark:bg-gray-600 text-xs px-2 py-1 rounded hover:shadow">🌙</button>
+      </div>
+    </div>
+  </header>
+  
+  <header class="mb-6">
+    <h1 class="text-3xl font-bold">{{ category.name }}</h1>
+    <p class="text-sm text-gray-600 dark:text-gray-300">{{ category.description }}</p>
+  </header>
+
+  <!-- Devices -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for device in devices %}
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow hover:shadow-md transition">
+      <div class="flex items-center justify-between mb-2">
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ device.name }}</h2>
+        <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full">{{ device.type }}</span>
+      </div>
+      <div class="text-yellow-400 text-sm mb-1">★★★★★</div>
+      <p class="text-sm text-gray-600 dark:text-gray-300">{{ device.specs }}</p>
+      <p class="text-base font-bold text-emerald-500 mt-2">{{ device.price }}</p>
+
+      <div class="mt-4 flex gap-2 flex-wrap">
+        <form action="{{ url_for('favorite', device_id=device.id) }}" method="POST">
+          <button type="submit"
+            class="px-4 py-2 rounded text-sm font-medium transition {{ 'bg-red-500 text-white hover:bg-red-600' if device.is_favorite else 'bg-gray-200 text-gray-700 hover:bg-gray-300' }}">
+            {{ '★ Favorited' if device.is_favorite else '☆ Add to Favorites' }}
+          </button>
+        </form>
+        <form action="{{ url_for('add_to_cart', device_id=device.id) }}" method="POST">
+          <button type="submit"
+            class="px-4 py-2 bg-yellow-400 text-gray-900 rounded text-sm font-medium hover:bg-yellow-500 transition">
+            🛒 Add to Cart
+          </button>
+        </form>
+        <form action="{{ url_for('buy', device_id=device.id) }}" method="POST" onsubmit="return showLoading(this)">
+          <button class="px-4 py-2 bg-indigo-500 text-white rounded text-sm font-medium hover:bg-indigo-600 transition">
+            Buy
+          </button>
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Back Button -->
+  <div class="mt-10">
+    <a href="{{ url_for('home') }}"
+      class="inline-block px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded shadow">
+      ← Back to Categories
+    </a>
+  </div>
+
+  <!-- Optional loader (if using showLoading function) -->
+  <script>
+    function showLoading(form) {
+      setTimeout(() => form.submit(), 800);
+      return false;
+    }
+  </script>
+
+</body>
+</html>
