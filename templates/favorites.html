@@ -36,20 +36,36 @@
   </script>
 
   <!-- Header -->
-  <header class="bg-white/90 dark:bg-gray-800/90 backdrop-blur sticky top-0 z-50 shadow-sm">
+  <!-- Header -->
+  <header class="bg-white/90 dark:bg-gray-800/80 backdrop-blur sticky top-0 z-50 shadow-sm">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-6 py-4 gap-4">
-      <div class="text-2xl font-bold text-gray-800 dark:text-white tracking-tight">ECL_MicroNet</div>
+      <a href="/" class="flex items-center gap-3 group transition-all duration-300">
+        <div class="relative backdrop-blur-md bg-white/30 dark:bg-white/10 shadow-lg rounded-full p-1 ring-2 ring-white dark:ring-gray-700">
+          <img src="/static/SCLLogo.jpg"
+               alt="ECL_MicroNet Logo"
+               class="h-10 w-10 object-cover rounded-full transition-transform group-hover:scale-110 duration-300">
+        </div>
+        <span class="text-2xl font-semibold tracking-tight text-gray-800 dark:text-white group-hover:text-indigo-500 transition-colors duration-300">
+          ECL<span class="text-indigo-500">_MicroNet</span>
+        </span>
+      </a>
 
       <form method="GET" class="flex-1 max-w-xl w-full">
-        <input type="text" name="search" placeholder="Search favorites..."
+        <input type="text" name="search" placeholder="Search orders..."
           class="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" />
       </form>
 
-      <button onclick="toggleDarkMode()"
-        class="bg-gray-200 dark:bg-gray-600 text-sm px-3 py-1 rounded hover:shadow transition">
-        🌙
-      </button>
-    </div>
+      <div class="flex items-center gap-3">
+        <a href="{{ url_for('home') }}"
+           class="inline-flex items-center gap-2 px-3 py-1 text-sm rounded bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-400 dark:hover:bg-gray-600 shadow transition">
+          ← Back
+        </a>
+        <button onclick="toggleDarkMode()"
+            class="bg-gray-200 dark:bg-gray-600 text-xs px-2 py-1 rounded hover:shadow transition">
+          🌙
+        </button>
+      </div>
+      
   </header>
 
   <!-- Main -->
