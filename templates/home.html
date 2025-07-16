@@ -14,30 +14,41 @@
 </head>
 <body class="min-h-screen bg-gradient-to-br from-slate-100 to-blue-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition">
 
+  <!-- Persistent Dark Mode Script -->
+  <script>
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.classList.add("dark");
+    }
+
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle("dark");
+      localStorage.setItem("theme",
+        document.documentElement.classList.contains("dark") ? "dark" : "light");
+    }
+  </script>
+
   <!-- Header -->
-  <header class="bg-white/90 dark:bg-gray-800/80 backdrop-blur sticky top-0 z-50 shadow-sm">
+  <header class="bg-white/90 dark:bg-gray-800/90 backdrop-blur sticky top-0 z-50 shadow-sm">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-6 py-4 gap-4">
       <div class="text-xl font-bold text-gray-800 dark:text-white">ECL_MicroNet</div>
+
       <form method="GET" class="flex-1 max-w-xl w-full">
         <input type="text" name="search" placeholder="Search categories..."
           class="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" />
       </form>
+
       <div class="flex flex-col sm:flex-row items-center gap-4 text-sm text-gray-700 dark:text-gray-200">
         <nav class="flex gap-4 items-center font-medium">
-          <a href="/" class="hover:text-indigo-500 transition">Home</a>
-          <a href="/?favorites=1" class="hover:text-indigo-500 transition">Favorites</a>
-          <a href="/cart" class="hover:text-indigo-500 transition">Cart</a>
-          <a href="/orders" class="hover:text-indigo-500 transition">My Orders</a>
-          <button onclick="document.documentElement.classList.toggle('dark')"
-            class="bg-gray-200 dark:bg-gray-600 text-xs px-2 py-1 rounded hover:shadow">🌙</button>
-          <button onclick="alert('Go to cart')"
-            class="relative w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-600 focus:outline-none">
-            <svg class="w-5 h-5 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6h12.4L17 13M7 13H5.4M17 13l1.6 6M6 21a1 1 0 100-2 1 1 0 000 2zm12 0a1 1 0 100-2 1 1 0 000 2z" />
-            </svg>
-            <span id="cartCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">0</span>
+          <a href="/" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition">Home</a>
+          <a href="{{ url_for('favorites_page') }}" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition">Favorites</a>
+          <a href="/cart" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition">Cart</a>
+          <a href="/orders" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition">My Orders</a>
+
+          <button onclick="toggleDarkMode()"
+            class="bg-gray-200 dark:bg-gray-600 text-xs px-2 py-1 rounded hover:shadow transition">
+            🌙
           </button>
+
           <div class="relative z-50">
             <button id="profileBtn" type="button" onclick="toggleProfileMenu(event)"
               class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-300 dark:bg-gray-600 focus:outline-none">
@@ -45,10 +56,14 @@
                 <path d="M10 10a4 4 0 100-8 4 4 0 000 8zm-8 8a8 8 0 1116 0H2z" />
               </svg>
             </button>
-            <div id="profileMenu" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded shadow-md z-50 text-sm">
+            <div id="profileMenu"
+              class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded shadow-md text-sm">
               <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Change Profile</a>
               <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Change Password</a>
-              <a href="{{ url_for('logout') }}" class="block px-4 py-2 text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-600">Sign Out</a>
+              <a href="{{ url_for('logout') }}"
+                 class="block px-4 py-2 text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-600">
+                Sign Out
+              </a>
             </div>
           </div>
         </nav>
@@ -56,14 +71,14 @@
     </div>
   </header>
 
-  <!-- Categories -->
-  <main class="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+  <!-- Categories Panel -->
+  <main class="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
     {% for category in categories %}
-    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow hover:shadow-md transition">
+    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 rounded-xl shadow hover:shadow-lg transition">
       <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ category.name }}</h2>
       <p class="text-sm text-gray-600 dark:text-gray-300">{{ category.description }}</p>
       <a href="{{ url_for('view_category', category_id=category.id) }}"
-         class="mt-4 inline-block px-4 py-2 bg-indigo-500 text-white rounded text-sm font-medium hover:bg-indigo-600 transition">
+         class="mt-4 inline-block px-4 py-2 bg-indigo-500 text-white rounded text-sm font-medium hover:bg-indigo-600 dark:hover:bg-indigo-400 transition">
          🔍 View Devices
       </a>
     </div>
@@ -71,21 +86,24 @@
   </main>
 
   <!-- Footer -->
-  <footer class="text-center text-sm text-gray-400 mt-32">
-    &copy; 2025 ECL_WEB-Initial | All rights reserved.
+  <footer class="text-center text-sm text-gray-500 dark:text-gray-400 mt-20 py-8">
+    &copy; 2025 <strong class="text-indigo-500">ECL_MicroNet</strong> | All rights reserved.
   </footer>
 
+  <!-- Profile Menu Script -->
   <script>
     function toggleProfileMenu(event) {
       event.stopPropagation();
       document.getElementById("profileMenu").classList.toggle("hidden");
     }
+
     window.addEventListener("click", function () {
       const menu = document.getElementById("profileMenu");
       if (!menu.classList.contains("hidden")) {
         menu.classList.add("hidden");
       }
     });
+
     document.getElementById("profileMenu").addEventListener("click", function (e) {
       e.stopPropagation();
     });

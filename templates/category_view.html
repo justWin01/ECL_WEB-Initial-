@@ -5,33 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{{ category.name }} - ECL_MicroNet</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: {} },
+    };
+  </script>
 </head>
-<body class="min-h-screen bg-slate-100 text-gray-800 p-6 dark:bg-gray-900 dark:text-white">
+<body class="min-h-screen bg-slate-100 text-gray-800 p-6 dark:bg-gray-900 dark:text-white transition-colors duration-300">
+
+  <!-- Persistent Dark Mode Script -->
+  <script>
+    // Load saved theme on page load
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.classList.add("dark");
+    }
+
+    // Toggle dark mode and save to localStorage
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle("dark");
+      if (document.documentElement.classList.contains("dark")) {
+        localStorage.setItem("theme", "dark");
+      } else {
+        localStorage.setItem("theme", "light");
+      }
+    }
+  </script>
 
   <!-- Header -->
-  <!-- Header -->
-<header class="bg-white/90 dark:bg-gray-800/80 backdrop-blur sticky top-0 z-50 shadow-sm">
+  <header class="bg-white/90 dark:bg-gray-800/80 backdrop-blur sticky top-0 z-50 shadow-sm">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-6 py-4 gap-4">
       <div class="text-xl font-bold text-gray-800 dark:text-white">ECL_MicroNet</div>
-      
+
       <form method="GET" class="flex-1 max-w-xl w-full">
         <input type="text" name="search" placeholder="Search categories..."
           class="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" />
       </form>
-      
+
       <div class="flex items-center gap-4">
-        <button onclick="document.documentElement.classList.toggle('dark')"
-            class="bg-gray-200 dark:bg-gray-600 text-xs px-2 py-1 rounded hover:shadow">🌙</button>
+        <button onclick="toggleDarkMode()"
+            class="bg-gray-200 dark:bg-gray-600 text-xs px-2 py-1 rounded hover:shadow transition">
+          🌙
+        </button>
       </div>
     </div>
   </header>
-  
-  <header class="mb-6">
+
+  <!-- Category Heading -->
+  <header class="mb-6 mt-4">
     <h1 class="text-3xl font-bold">{{ category.name }}</h1>
     <p class="text-sm text-gray-600 dark:text-gray-300">{{ category.description }}</p>
   </header>
 
-  <!-- Devices -->
+  <!-- Devices List -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     {% for device in devices %}
     <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow hover:shadow-md transition">
@@ -46,7 +72,7 @@
       <div class="mt-4 flex gap-2 flex-wrap">
         <form action="{{ url_for('favorite', device_id=device.id) }}" method="POST">
           <button type="submit"
-            class="px-4 py-2 rounded text-sm font-medium transition {{ 'bg-red-500 text-white hover:bg-red-600' if device.is_favorite else 'bg-gray-200 text-gray-700 hover:bg-gray-300' }}">
+            class="px-4 py-2 rounded text-sm font-medium transition {{ 'bg-red-500 text-white hover:bg-red-600' if device.is_favorite else 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-600 dark:text-white dark:hover:bg-gray-500' }}">
             {{ '★ Favorited' if device.is_favorite else '☆ Add to Favorites' }}
           </button>
         </form>
@@ -69,18 +95,23 @@
   <!-- Back Button -->
   <div class="mt-10">
     <a href="{{ url_for('home') }}"
-      class="inline-block px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded shadow">
+      class="inline-block px-4 py-2 bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded shadow transition">
       ← Back to Categories
     </a>
   </div>
 
-  <!-- Optional loader (if using showLoading function) -->
+  <!-- Buy Loading Function -->
   <script>
     function showLoading(form) {
       setTimeout(() => form.submit(), 800);
       return false;
     }
   </script>
+
+   <!-- Footer -->
+   <footer class="text-center text-sm text-gray-500 dark:text-gray-400 mt-20 py-8">
+    &copy; 2025 <strong class="text-indigo-500">ECL_MicroNet</strong> | All rights reserved.
+  </footer>
 
 </body>
 </html>

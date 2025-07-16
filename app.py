@@ -33,6 +33,13 @@ def home():
         return redirect(url_for('login'))
     return render_template("home.html", categories=categories)
 
+@app.route('/favorites')
+def favorites_page():
+    favorite_devices = [d for d in devices if d.get('is_favorite')]
+    return render_template('favorites.html', devices=favorite_devices)
+
+
+
 @app.route('/category/<int:category_id>')
 def view_category(category_id):
     if 'user' not in session:
