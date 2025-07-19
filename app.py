@@ -39,6 +39,22 @@ def favorites_page():
     return render_template('favorites.html', devices=favorite_devices)
 
 
+@app.route('/search')
+def search():
+    query = request.args.get('search', '').lower()
+
+    # Filter categories and devices based on search keyword
+    matched_categories = [c for c in categories if query in c['name'].lower()]
+    matched_devices = [d for d in devices if query in d['name'].lower()]
+
+    return render_template(
+        'search_results.html',
+        categories=matched_categories,
+        devices=matched_devices,
+        query=query
+    )
+
+
 
 @app.route('/category/<int:category_id>')
 def view_category(category_id):
