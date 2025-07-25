@@ -37,7 +37,7 @@
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-6 py-4 gap-4">
         <a href="/" class="flex items-center gap-3 group transition-all duration-300">
             <div class="relative backdrop-blur-md bg-white/30 dark:bg-white/10 shadow-lg rounded-full p-1 ring-2 ring-white dark:ring-gray-700">
-              <img src="/static/SCLLogo.jpg"
+              <img src="/static/ecl logo.jpg"
                    alt="ECL_MicroNet Logo"
                    class="h-10 w-10 object-cover rounded-full transition-transform group-hover:scale-110 duration-300">
             </div>
@@ -67,9 +67,11 @@
     <p class="text-sm text-gray-600 dark:text-gray-300">{{ category.description }}</p>
   </header>
 
+  <!-- Devices Container -->
+<div class="max-w-10xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
   <!-- Devices List -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    {% for device in devices %}1
+    {% for device in devices %}
     <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow hover:shadow-md transition">
       <div class="flex items-center justify-between mb-2">
         <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ device.name }}</h2>
@@ -78,7 +80,6 @@
       <div class="text-yellow-400 text-sm mb-1">★★★★★</div>
       <p class="text-sm text-gray-600 dark:text-gray-300">{{ device.specs }}</p>
       <p class="text-base font-bold text-emerald-500 mt-2">{{ device.price }}</p>
-
       <div class="mt-4 flex gap-2 flex-wrap">
         <form action="{{ url_for('favorite', device_id=device.id) }}" method="POST">
           <button type="submit"
@@ -93,7 +94,8 @@
           </button>
         </form>
         <form action="{{ url_for('buy', device_id=device.id) }}" method="POST" onsubmit="return showLoading(this)">
-          <button class="px-4 py-2 bg-indigo-500 text-white rounded text-sm font-medium hover:bg-indigo-600 transition">
+          <button
+            class="px-4 py-2 bg-indigo-500 text-white rounded text-sm font-medium hover:bg-indigo-600 transition">
             Buy
           </button>
         </form>
@@ -101,6 +103,7 @@
     </div>
     {% endfor %}
   </div>
+</div>
 
   <!-- Back Button -->
   <div class="mt-10">
