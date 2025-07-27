@@ -1,55 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Your Cart - ECL_MicroNet</title>
-    <!-- Icon -->
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='ecl logo.jpg') }}">
-
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='ecl logo.jpg') }}">
   <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: {} },
+    };
+  </script>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-slate-100 to-blue-100 text-gray-800 dark:bg-gray-900 dark:text-white transition">
+<body class="bg-slate-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen transition">
 
-  <div class="max-w-4xl mx-auto px-6 py-10">
-    <h1 class="text-3xl font-bold mb-6">🛒 Your Cart</h1>
+  <!-- Persistent Dark Mode -->
+  <script>
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.classList.add("dark");
+    }
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle("dark");
+      localStorage.setItem("theme", document.documentElement.classList.contains("dark") ? "dark" : "light");
+    }
+  </script>
+
+  <!-- Header -->
+  <header class="bg-white/90 dark:bg-gray-800/80 backdrop-blur sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-6 py-4 gap-4">
+      <a href="/" class="flex items-center gap-3 group transition-all duration-300">
+        <div class="relative backdrop-blur-md bg-white/30 dark:bg-white/10 shadow-lg rounded-full p-1 ring-2 ring-white dark:ring-gray-700">
+          <img src="/static/ecl logo.jpg"
+               alt="ECL_MicroNet Logo"
+               class="h-10 w-10 object-cover rounded-full transition-transform group-hover:scale-110 duration-300">
+        </div>
+        <span class="text-2xl font-semibold tracking-tight text-gray-800 dark:text-white group-hover:text-indigo-500 transition-colors duration-300">
+          ECL<span class="text-indigo-500">_MicroNet</span>
+        </span>
+      </a>
+
+      <div class="flex items-center gap-3">
+        <a href="{{ url_for('home') }}"
+           class="inline-flex items-center gap-2 px-3 py-1 text-sm rounded bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-400 dark:hover:bg-gray-600 shadow transition">
+          ← Back
+        </a>
+        <button onclick="toggleDarkMode()"
+            class="bg-gray-200 dark:bg-gray-600 text-xs px-2 py-1 rounded hover:shadow transition">
+          🌙
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto px-4 py-10">
+    
+    <!-- Category-style Heading -->
+    <header class="mb-6 mt-4">
+      <h1 class="text-3xl font-bold">🛒 Your Cart</h1>
+      <p class="text-sm text-gray-600 dark:text-gray-300">Review your selected items before checking out.</p>
+    </header>
 
     {% if cart %}
-      <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
-        <ul class="divide-y divide-gray-200 dark:divide-gray-700">
-          {% for item in cart %}
-          <li class="flex justify-between items-center px-6 py-4">
-            <div>
-              <h2 class="text-lg font-semibold">{{ item.name }}</h2>
-              <p class="text-sm text-gray-500 dark:text-gray-400">{{ item.price }}</p>
+      <div class="space-y-6">
+        {% for item in cart %}
+          <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow p-5 transition hover:shadow-md">
+            <div class="flex justify-between items-center mb-2">
+              <div>
+                <h2 class="text-lg font-semibold">{{ item.name }}</h2>
+                <p class="text-sm text-gray-500 dark:text-gray-400">{{ item.price }}</p>
+              </div>
+              <form method="POST" action="/remove-from-cart/{{ loop.index0 }}">
+                <button type="submit" onclick="return confirm('Remove this item from your cart?')"
+                  class="text-sm text-red-600 dark:text-red-400 hover:underline hover:text-red-800 dark:hover:text-red-300 transition">
+                  ❌ Remove
+                </button>
+              </form>
             </div>
-            <form method="POST" action="/remove-from-cart/{{ loop.index0 }}">
-              <button type="submit" class="text-red-500 hover:text-red-700">Remove</button>
-            </form>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
+          </div>
+        {% endfor %}
 
-      <div class="mt-6 flex justify-between items-center">
-        <a href="/" class="text-indigo-600 hover:underline">← Continue Shopping</a>
-        <form method="POST" action="/checkout">
-          <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700 shadow">Checkout</button>
-        </form>
+        <!-- Actions -->
+        <div class="flex justify-between items-center mt-6">
+          <a href="/" class="text-indigo-600 hover:underline">← Continue Shopping</a>
+          <form method="POST" action="/checkout">
+            <button type="submit"
+              class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700 transition shadow">
+              Checkout
+            </button>
+          </form>
+        </div>
       </div>
-      
 
     {% else %}
-      <p class="text-gray-600 dark:text-gray-400 mb-6">Your cart is currently empty.</p>
-      <a href="/" class="inline-block bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700 shadow">Browse Devices</a>
+      <div class="text-center py-24">     
+        <p class="text-lg text-gray-600 dark:text-gray-300 mb-4">🛍️ Your cart is currently empty.</p>
+        <a href="/" class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700 transition">
+          Browse Devices
+        </a>
+      </div>
     {% endif %}
+  </main>
 
-
-   <!-- Footer -->
-   <footer class="text-center text-sm text-gray-500 dark:text-gray-400 mt-20 py-8">
-    &copy; 2025 <strong class="text-indigo-500">ECL_MicroNet</strong> | All rights reserved.
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-500 dark:text-gray-400 mt-10 py-2">
+    &copy; 2025 <span class="text-indigo-500 font-semibold">ECL_MicroNet</span> | All rights reserved.
   </footer>
-  </div>
 
 </body>
 </html>
