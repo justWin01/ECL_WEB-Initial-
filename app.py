@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from datetime import datetime
+from flask import session, redirect, url_for, request
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
@@ -99,22 +100,31 @@ def logout():
     session.pop('orders', None)
     return redirect(url_for('login'))
 
-@app.route('/cart')
-def cart():
-    if 'user' not in session:
-        return redirect(url_for('login'))
-    return render_template('cart.html', cart=session.get('cart', []))
+@app.route("/cart")
+def view_cart():
+    cart = session.get("cart", [])
+    return render_template("cart.html", cart=cart)
 
-@app.route('/add-to-cart/<int:device_id>', methods=['POST'])
-def add_to_cart(device_id):
-    if 'user' not in session:
-        return redirect(url_for('login'))
-    device = next((d for d in devices if d['id'] == device_id), None)
-    if device:
-        if 'cart' not in session:
-            session['cart'] = []
-        session['cart'].append(device)
-    return redirect(url_for('cart'))
+
+@app.route("/add-to-cart", methods=["POST"])
+def add_to_cart():
+    item_name = request.form.get("name")
+    item_price = request.form.get("price")
+
+    if not item_name or not item_price:
+        return redirect(url_for("home"))  # Or show an error
+
+    # Initialize cart if not exists
+    if "cart" not in session:
+        session["cart"] = []
+
+    session["cart"].append({
+        "name": item_name,
+        "price": item_price
+    })
+    session.modified = True  # Important!
+
+    return redirect(url_for("view_cart"))
 
 @app.route('/buy/<int:device_id>', methods=['POST'])
 def buy(device_id):

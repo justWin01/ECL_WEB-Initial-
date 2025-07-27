@@ -90,12 +90,15 @@
             {{ '★ Favorited' if device.is_favorite else '☆ Add to Favorites' }}
           </button>
         </form>
-        <form action="{{ url_for('add_to_cart', device_id=device.id) }}" method="POST">
+        <form action="{{ url_for('add_to_cart', device_id=device.id) }}" method="POST" class="flex gap-2">
+          <input type="number" name="quantity" value="1" min="1"
+                 class="w-16 text-sm px-2 py-1 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600" />
           <button type="submit"
-            class="px-4 py-2 bg-yellow-400 text-gray-900 rounded text-sm font-medium hover:bg-yellow-500 transition">
+                  class="px-3 py-2 bg-yellow-400 text-gray-900 rounded text-sm font-medium hover:bg-yellow-500 transition">
             🛒 Add to Cart
           </button>
         </form>
+        
         <form action="{{ url_for('buy', device_id=device.id) }}" method="POST" onsubmit="return showLoading(this)">
           <button
             class="px-4 py-2 bg-indigo-500 text-white rounded text-sm font-medium hover:bg-indigo-600 transition">
