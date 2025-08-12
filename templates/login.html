@@ -4,15 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login - ECL_MicroNet</title>
-    <!-- Icon -->
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='ecl logo.jpg') }}">
+  <!-- Icon -->
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='ecl logo.jpg') }}">
 
   <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
-        extend: {},
+        extend: {
+          keyframes: {
+  glow: {
+    '0%, 100%': { boxShadow: '0 0 20px rgba(64, 64, 64, 0.7), 0 0 40px rgba(96, 96, 96, 0.5)' },
+    '50%': { boxShadow: '0 0 30px rgba(64, 64, 64, 1), 0 0 60px rgba(96, 96, 96, 0.8)' }
+  }
+}
+,
+          animation: {
+            glow: 'glow 2s infinite ease-in-out'
+          }
+        },
       },
     };
   </script>
@@ -25,7 +36,7 @@
     🌙 Dark Mode
   </button>
 
-  <div class="bg-white dark:bg-gray-900 shadow-2xl rounded-xl p-8 w-full max-w-sm mx-4 transition">
+  <div class="bg-white dark:bg-gray-900 rounded-xl p-8 w-full max-w-sm mx-4 transition border border-gray-300 dark:border-gray-700 animate-glow">
     
     <!-- Logo and Title -->
     <div class="text-center mb-6">
@@ -88,10 +99,10 @@
       </button>
     </form>
 
-     <!-- Footer -->
-  <footer class="text-center text-sm text-gray-500 dark:text-gray-400 mt-20 py-8">
-    &copy; 2025 <strong class="text-indigo-500">ECL_MicroNet</strong> | All rights reserved.
-  </footer>
+    <!-- Footer -->
+    <footer class="text-center text-sm text-gray-500 dark:text-gray-400 mt-20 py-8">
+      &copy; 2025 <strong class="text-indigo-500">ECL_MicroNet</strong> | All rights reserved.
+    </footer>
   </div>
 
   <!-- Show/Hide Password Script -->
