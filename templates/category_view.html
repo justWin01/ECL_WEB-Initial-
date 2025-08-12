@@ -35,34 +35,42 @@
     }
   </script>
 
-  <!-- Header -->
-  <header class="bg-white/90 dark:bg-gray-800/80 backdrop-blur sticky top-0 z-50 shadow-sm">
-    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-6 py-4 gap-4">
-        <a href="/" class="flex items-center gap-3 group transition-all duration-300">
-            <div class="relative backdrop-blur-md bg-white/30 dark:bg-white/10 shadow-lg rounded-full p-1 ring-2 ring-white dark:ring-gray-700">
-              <img src="/static/ecl logo.jpg"
-                   alt="ECL_MicroNet Logo"
-                   class="h-10 w-10 object-cover rounded-full transition-transform group-hover:scale-110 duration-300">
-            </div>
-            <span class="text-2xl font-semibold tracking-tight text-gray-800 dark:text-white group-hover:text-indigo-500 transition-colors duration-300">
-              ECL<span class="text-indigo-500">_MicroNet</span>
-            </span>
-          </a>
-          
-
-      <form method="GET" class="flex-1 max-w-xl w-full">
-        <input type="text" name="search" placeholder="Search categories..."
-          class="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-      </form>
-
-      <div class="flex items-center gap-4">
-        <button onclick="toggleDarkMode()"
-            class="bg-gray-200 dark:bg-gray-600 text-xs px-2 py-1 rounded hover:shadow transition">
-          🌙
-        </button>
+<!-- Header -->
+<header class="bg-white/90 dark:bg-gray-800/80 backdrop-blur sticky top-0 z-50 shadow-sm">
+  <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-6 py-4 gap-4">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-3 group transition-all duration-300">
+      <div class="relative backdrop-blur-md bg-white/30 dark:bg-white/10 shadow-lg rounded-full p-1 ring-2 ring-white dark:ring-gray-700">
+        <img src="/static/ecl logo.jpg"
+             alt="ECL_MicroNet Logo"
+             class="h-10 w-10 object-cover rounded-full transition-transform group-hover:scale-110 duration-300">
       </div>
+      <span class="text-2xl font-semibold tracking-tight text-gray-800 dark:text-white group-hover:text-indigo-500 transition-colors duration-300">
+        ECL<span class="text-indigo-500">_MicroNet</span>
+      </span>
+    </a>
+
+    <!-- Search -->
+    <form method="GET" class="flex-1 max-w-xl w-full">
+      <input type="text" name="search" placeholder="Search categories..."
+        class="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+    </form>
+
+    <!-- Dark Mode + Back Button -->
+    <div class="flex items-center gap-3">
+      <button onclick="toggleDarkMode()"
+          class="bg-gray-200 dark:bg-gray-600 text-xs px-2 py-1 rounded hover:shadow transition">
+        🌙
+      </button>
+      <a href="{{ url_for('home') }}"
+        class="px-3 py-0.1 bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded shadow transition">
+        ← Back 
+      </a>
     </div>
-  </header>
+  </div>
+</header>
+
+  
 
   <!-- Category Heading -->
   <header class="mb-6 mt-4">
@@ -111,14 +119,7 @@
   </div>
 </div>
 
-  <!-- Back Button -->
-  <div class="mt-10">
-    <a href="{{ url_for('home') }}"
-      class="inline-block px-4 py-2 bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded shadow transition">
-      ← Back to Categories
-    </a>
-  </div>
-
+ 
   <!-- Buy Loading Function -->
   <script>
     function showLoading(form) {
