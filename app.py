@@ -11,7 +11,8 @@ categories = [
     {"id": 2, "name": "Processors", "description": "Latest generation CPUs from Intel and AMD."},
     {"id": 3, "name": "Memory (RAM)", "description": "DDR4 and DDR5 memory modules."},
     {"id": 4, "name": "Storage", "description": "Fast and reliable SSDs and HDDs."},
-    {"id": 5, "name": "Motherboards", "description": "Compatible boards for Intel and AMD builds."}
+    {"id": 5, "name": "Motherboards", "description": "Compatible boards for Intel and AMD builds."},
+     {"id": 6, "name": "Head-Set", "description": "Compatible  for Intel and AMD builds."}
 ]
 
 devices = [
@@ -19,7 +20,9 @@ devices = [
     {"id": 2, "name": "Intel i7-13700K", "type": "Processor", "specs": "16-Core, 24-Thread", "price": "\u20b122,499", "is_favorite": False, "category_id": 2},
     {"id": 3, "name": "Corsair Vengeance 16GB", "type": "RAM", "specs": "DDR5 5600MHz", "price": "\u20b14,999", "is_favorite": False, "category_id": 3},
     {"id": 4, "name": "Samsung 980 PRO 1TB", "type": "SSD", "specs": "PCIe 4.0 NVMe", "price": "\u20b17,299", "is_favorite": False, "category_id": 4},
-    {"id": 5, "name": "ASUS ROG Strix B650E", "type": "Motherboard", "specs": "AM5, DDR5", "price": "\u20b113,999", "is_favorite": False, "category_id": 5}
+    {"id": 5, "name": "ASUS ROG Strix B650E", "type": "Motherboard", "specs": "AM5, DDR5", "price": "\u20b113,999", "is_favorite": False, "category_id": 5},
+     {"id": 5, "name": "ASUS ROG Strix B650E", "type": "Head-Set", "specs": "AM5, DDR5", "price": "\u20b113,999", "is_favorite": False, "category_id": 5}
+
 ]
 
 USER_CREDENTIALS = {
