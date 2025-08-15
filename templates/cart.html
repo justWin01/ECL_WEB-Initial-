@@ -5,15 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Your Cart - ECL_MicroNet</title>
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='ecl logo.jpg') }}">
-  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
-      theme: { extend: {} },
+      theme: {
+        extend: {
+          boxShadow: {
+            glow: "0 0 10px rgba(99,102,241,0.3)"
+          }
+        }
+      }
     };
   </script>
 </head>
-<body class="bg-slate-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen transition">
+<body class="bg-slate-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
 
   <!-- Persistent Dark Mode -->
   <script>
@@ -27,26 +33,26 @@
   </script>
 
   <!-- Header -->
-  <header class="bg-white/90 dark:bg-gray-800/80 backdrop-blur sticky top-0 z-50 shadow-sm">
+  <header class="bg-white/80 dark:bg-gray-800/70 backdrop-blur sticky top-0 z-50 shadow-md border-b border-gray-200 dark:border-gray-700">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-6 py-4 gap-4">
-      <a href="/" class="flex items-center gap-3 group transition-all duration-300">
-        <div class="relative backdrop-blur-md bg-white/30 dark:bg-white/10 shadow-lg rounded-full p-1 ring-2 ring-white dark:ring-gray-700">
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="relative backdrop-blur-md bg-white/30 dark:bg-white/10 shadow-lg rounded-full p-1 ring-2 ring-white dark:ring-gray-700 transition-transform duration-300 group-hover:scale-105">
           <img src="/static/ecl logo.jpg"
                alt="ECL_MicroNet Logo"
-               class="h-10 w-10 object-cover rounded-full transition-transform group-hover:scale-110 duration-300">
+               class="h-10 w-10 object-cover rounded-full">
         </div>
-        <span class="text-2xl font-semibold tracking-tight text-gray-800 dark:text-white group-hover:text-indigo-500 transition-colors duration-300">
+        <span class="text-2xl font-bold tracking-tight text-gray-800 dark:text-white group-hover:text-indigo-500 transition-colors duration-300">
           ECL<span class="text-indigo-500">_MicroNet</span>
         </span>
       </a>
 
       <div class="flex items-center gap-3">
         <a href="{{ url_for('home') }}"
-           class="inline-flex items-center gap-2 px-3 py-1 text-sm rounded bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-400 dark:hover:bg-gray-600 shadow transition">
+           class="inline-flex items-center gap-2 px-4 py-2 text-sm rounded-lg bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-400 dark:hover:bg-gray-600 shadow transition">
           ← Back
         </a>
         <button onclick="toggleDarkMode()"
-            class="bg-gray-200 dark:bg-gray-600 text-xs px-2 py-1 rounded hover:shadow transition">
+            class="bg-gray-200 dark:bg-gray-600 text-sm px-3 py-2 rounded-lg hover:shadow transition">
           🌙
         </button>
       </div>
@@ -55,48 +61,50 @@
 
   <!-- Main Content -->
   <main class="max-w-4xl mx-auto px-4 py-10">
-    
-    <!-- Category-style Heading -->
-    <header class="mb-6 mt-4">
-      <h1 class="text-3xl font-bold">🛒 Your Cart</h1>
-      <p class="text-sm text-gray-600 dark:text-gray-300">Review your selected items before checking out.</p>
+
+    <!-- Heading -->
+    <header class="mb-8 text-center">
+      <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white mb-2">🛒 Your Cart</h1>
+      <p class="text-sm text-gray-600 dark:text-gray-400">Review your selected items before checking out.</p>
     </header>
 
     {% if cart %}
       <div class="space-y-6">
         {% for item in cart %}
-          <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow p-5 transition hover:shadow-md">
-            <div class="flex justify-between items-center mb-2">
-              <div>
-                <h2 class="text-lg font-semibold">{{ item.name }}</h2>
-                <p class="text-sm text-gray-500 dark:text-gray-400">{{ item.price }}</p>
-              </div>
-              <form method="POST" action="/remove-from-cart/{{ loop.index0 }}">
-                <button type="submit" onclick="return confirm('Remove this item from your cart?')"
-                  class="text-sm text-red-600 dark:text-red-400 hover:underline hover:text-red-800 dark:hover:text-red-300 transition">
-                  ❌ Remove
-                </button>
-              </form>
+          <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-5 flex justify-between items-center">
+            <div>
+              <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ item.name }}</h2>
+              <p class="text-sm text-gray-500 dark:text-gray-400">{{ item.price }}</p>
             </div>
+            <form method="POST" action="/remove-from-cart/{{ loop.index0 }}">
+              <button type="submit" onclick="return confirm('Remove this item from your cart?')"
+                class="text-sm text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 font-medium transition">
+                ❌ Remove
+              </button>
+            </form>
           </div>
         {% endfor %}
 
         <!-- Actions -->
-        <div class="flex justify-between items-center mt-6">
-          <a href="/" class="text-indigo-600 hover:underline">← Continue Shopping</a>
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mt-6">
+          <a href="/" class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline flex items-center gap-1">
+            ← Continue Shopping
+          </a>
           <form method="POST" action="/checkout">
             <button type="submit"
-              class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700 transition shadow">
-              Checkout
+              class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg shadow-glow font-semibold transition-all">
+              ✅ Proceed to Checkout
             </button>
           </form>
         </div>
       </div>
 
     {% else %}
-      <div class="text-center py-24">     
-        <p class="text-lg text-gray-600 dark:text-gray-300 mb-4">🛍️ Your cart is currently empty.</p>
-        <a href="/" class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700 transition">
+      <div class="text-center py-20">
+        <div class="text-5xl mb-4">🛍️</div>
+        <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">Your cart is currently empty.</p>
+        <a href="/"
+           class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg shadow font-medium transition">
           Browse Devices
         </a>
       </div>
@@ -104,7 +112,7 @@
   </main>
 
   <!-- Footer -->
-  <footer class="text-center text-sm text-gray-500 dark:text-gray-400 mt-10 py-2">
+  <footer class="text-center text-sm text-gray-500 dark:text-gray-400 mt-12 py-4 border-t border-gray-200 dark:border-gray-700">
     &copy; 2025 <span class="text-indigo-500 font-semibold">ECL_MicroNet</span> | All rights reserved.
   </footer>
 
