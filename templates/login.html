@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login - ECL_MicroNet</title>
+  
   <!-- Icon -->
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='ecl logo.jpg') }}">
 
@@ -14,13 +15,17 @@
       theme: {
         extend: {
           keyframes: {
-  glow: {
-    '0%, 100%': { boxShadow: '0 0 20px rgba(64, 64, 64, 0.7), 0 0 40px rgba(96, 96, 96, 0.5)' },
-    '50%': { boxShadow: '0 0 30px rgba(64, 64, 64, 1), 0 0 60px rgba(96, 96, 96, 0.8)' }
-  }
-}
-,
+            gradientMove: {
+              '0%, 100%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' }
+            },
+            glow: {
+              '0%, 100%': { boxShadow: '0 0 20px rgba(79,70,229,0.4)' },
+              '50%': { boxShadow: '0 0 40px rgba(79,70,229,0.7)' }
+            }
+          },
           animation: {
+            gradientMove: 'gradientMove 8s ease infinite',
             glow: 'glow 2s infinite ease-in-out'
           }
         },
@@ -28,33 +33,41 @@
     };
   </script>
 </head>
-<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-100 dark:from-gray-900 dark:to-gray-800 transition">
+<body class="min-h-screen flex items-center justify-center 
+             bg-gradient-to-br from-blue-200 via-indigo-200 to-purple-200 
+             dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 
+             bg-[length:200%_200%] animate-gradientMove transition">
 
-  <!-- Dark mode toggle -->
-  <button onclick="document.documentElement.classList.toggle('dark')"
-    class="absolute top-4 right-4 bg-gray-200 dark:bg-gray-700 text-xs px-3 py-1 rounded-full text-gray-700 dark:text-gray-300 shadow hover:shadow-md transition">
+  <!-- Dark Mode Toggle (Persistent) -->
+  <button onclick="toggleDarkMode()"
+    class="absolute top-4 right-4 bg-white/30 dark:bg-gray-700/40 
+           text-xs px-3 py-1 rounded-full text-gray-800 dark:text-gray-200 
+           shadow backdrop-blur hover:scale-105 transition">
     🌙 Dark Mode
   </button>
 
-  <div class="bg-white dark:bg-gray-900 rounded-xl p-8 w-full max-w-sm mx-4 transition border border-gray-300 dark:border-gray-700 animate-glow">
-    
-    <!-- Logo and Title -->
+  <!-- Login Card -->
+  <div class="bg-white/30 dark:bg-gray-900/40 backdrop-blur-xl 
+              rounded-2xl p-8 w-full max-w-sm mx-4 border border-white/20 
+              dark:border-gray-700/40 shadow-xl animate-glow">
+
+    <!-- Logo -->
     <div class="text-center mb-6">
-      <!-- Oval -->
-      <div class="mx-auto w-24 h-24 rounded-full overflow-hidden ring-4 ring-white dark:ring-gray-600 shadow-lg mb-4 transition-transform duration-300 hover:scale-105">
-        <img src="/static/ecl logo.jpg"
-             alt="ECL_MicroNet Logo"
+      <div class="mx-auto w-24 h-24 rounded-full overflow-hidden ring-4 
+                  ring-white dark:ring-gray-700 shadow-lg mb-4 hover:scale-105 
+                  transition-transform duration-300">
+        <img src="/static/ecl logo.jpg" alt="ECL_MicroNet Logo" 
              class="w-full h-full object-cover" />
       </div>
-      
-      <div class="text-xl font-extrabold text-gray-700 dark:text-gray-300 mt-2">ECL_MicroNet</div>
-      <p class="text-gray-500 dark:text-gray-400 text-sm">Login to your account</p>
+      <div class="text-2xl font-extrabold text-gray-800 dark:text-gray-200">ECL_MicroNet</div>
+      <p class="text-gray-600 dark:text-gray-400 text-sm">Login to your account</p>
     </div>
 
-    <!-- Login Form -->
+    <!-- Form -->
     <form method="POST" class="space-y-4">
       {% if error %}
-        <div class="text-red-600 text-sm text-center bg-red-100 dark:bg-red-800 dark:text-red-200 px-3 py-2 rounded">
+        <div class="text-red-600 text-sm text-center bg-red-100 dark:bg-red-800 
+                    dark:text-red-200 px-3 py-2 rounded">
           {{ error }}
         </div>  
       {% endif %}
@@ -62,19 +75,29 @@
       <!-- Email -->
       <div>
         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
-        <input type="email" name="email" required
-          class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 shadow-sm focus:ring-2 focus:ring-indigo-400 focus:outline-none" />
+        <div class="relative">
+          <span class="absolute left-3 top-2.5 text-gray-500 dark:text-gray-400">📧</span>
+          <input type="email" name="email" required
+            class="mt-1 w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 
+                   dark:border-gray-700 bg-white/70 dark:bg-gray-800/70 
+                   text-gray-800 dark:text-gray-100 shadow-sm focus:ring-2 
+                   focus:ring-indigo-400 focus:outline-none" />
+        </div>
       </div>
 
-      <!-- Password with Show/Hide -->
+      <!-- Password -->
       <div>
         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
         <div class="relative">
+          <span class="absolute left-3 top-2.5 text-gray-500 dark:text-gray-400">🔒</span>
           <input id="passwordField" type="password" name="password" required
-            class="mt-1 w-full px-4 py-2 pr-16 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 shadow-sm focus:ring-2 focus:ring-indigo-400 focus:outline-none" />
-          
+            class="mt-1 w-full pl-10 pr-16 py-2 rounded-lg border border-gray-300 
+                   dark:border-gray-700 bg-white/70 dark:bg-gray-800/70 
+                   text-gray-800 dark:text-gray-100 shadow-sm focus:ring-2 
+                   focus:ring-indigo-400 focus:outline-none" />
           <button type="button" onclick="togglePasswordVisibility()"
-            class="absolute right-3 top-2.5 text-sm text-indigo-600 dark:text-indigo-400 hover:underline focus:outline-none">
+            class="absolute right-3 top-2.5 text-sm text-indigo-600 
+                   dark:text-indigo-400 hover:underline">
             Show
           </button>
         </div>
@@ -82,35 +105,42 @@
 
       <!-- Links -->
       <div class="flex justify-between text-sm">
-        <a href="#"
-           class="text-indigo-600 dark:text-indigo-400 hover:underline hover:text-indigo-800 dark:hover:text-indigo-300 transition duration-200">
-           Forgot password?
-        </a>
-        <a href="#"
-           class="text-indigo-600 dark:text-indigo-400 hover:underline hover:text-indigo-800 dark:hover:text-indigo-300 transition duration-200">
-           Create an account
-        </a>
+        <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Forgot password?</a>
+        <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Create account</a>
       </div>
 
       <!-- Login Button -->
       <button type="submit"
-        class="w-full bg-gray-600 hover:bg-indigo-700 hover:scale-[1.02] hover:shadow-lg text-white py-2 rounded-lg transition-all duration-200 font-semibold mt-2">
+        class="w-full bg-indigo-600 hover:bg-indigo-700 hover:scale-[1.02] 
+               hover:shadow-lg text-white py-2 rounded-lg transition-all 
+               duration-200 font-semibold mt-2">
         Log In
       </button>
     </form>
 
     <!-- Footer -->
-    <footer class="text-center text-sm text-gray-500 dark:text-gray-400 mt-20 py-8">
+    <footer class="text-center text-xs text-gray-500 dark:text-gray-400 mt-8">
       &copy; 2025 <strong class="text-indigo-500">ECL_MicroNet</strong> | All rights reserved.
     </footer>
   </div>
 
-  <!-- Show/Hide Password Script -->
+  <!-- Scripts -->
   <script>
+    // Persistent Dark Mode
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.classList.add("dark");
+    }
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle("dark");
+      localStorage.setItem("theme", 
+        document.documentElement.classList.contains("dark") ? "dark" : "light"
+      );
+    }
+
+    // Show/Hide Password
     function togglePasswordVisibility() {
       const passwordInput = document.getElementById('passwordField');
       const toggleBtn = passwordInput.nextElementSibling;
-
       if (passwordInput.type === 'password') {
         passwordInput.type = 'text';
         toggleBtn.textContent = 'Hide';
@@ -120,6 +150,5 @@
       }
     }
   </script>
-
 </body>
 </html>
