@@ -12,7 +12,7 @@ categories = [
     {"id": 3, "name": "Memory (RAM)", "description": "DDR4 and DDR5 memory modules."},
     {"id": 4, "name": "Storage", "description": "Fast and reliable SSDs and HDDs."},
     {"id": 5, "name": "Motherboards", "description": "Compatible boards for Intel and AMD builds."},
-     {"id": 6, "name": "Head-Set", "description": "Compatible  for Intel and AMD builds."}
+    {"id": 6, "name": "Head-Set", "description": "Compatible for Intel and AMD builds."}
 ]
 
 devices = [
@@ -21,8 +21,7 @@ devices = [
     {"id": 3, "name": "Corsair Vengeance 16GB", "type": "RAM", "specs": "DDR5 5600MHz", "price": "\u20b14,999", "is_favorite": False, "category_id": 3},
     {"id": 4, "name": "Samsung 980 PRO 1TB", "type": "SSD", "specs": "PCIe 4.0 NVMe", "price": "\u20b17,299", "is_favorite": False, "category_id": 4},
     {"id": 5, "name": "ASUS ROG Strix B650E", "type": "Motherboard", "specs": "AM5, DDR5", "price": "\u20b113,999", "is_favorite": False, "category_id": 5},
-     {"id": 5, "name": "ASUS ROG Strix B650E", "type": "Head-Set", "specs": "AM5, DDR5", "price": "\u20b113,999", "is_favorite": False, "category_id": 5}
-
+    {"id": 6, "name": "Razer Kraken", "type": "Head-Set", "specs": "7.1 Surround Sound", "price": "\u20b15,999", "is_favorite": False, "category_id": 6}
 ]
 
 USER_CREDENTIALS = {
@@ -42,15 +41,11 @@ def favorites_page():
     favorite_devices = [d for d in devices if d.get('is_favorite')]
     return render_template('favorites.html', devices=favorite_devices)
 
-
 @app.route('/search')
 def search():
     query = request.args.get('search', '').lower()
-
-    # Filter categories and devices based on search keyword
     matched_categories = [c for c in categories if query in c['name'].lower()]
     matched_devices = [d for d in devices if query in d['name'].lower()]
-
     return render_template(
         'search_results.html',
         categories=matched_categories,
@@ -58,17 +53,13 @@ def search():
         query=query
     )
 
-
-
 @app.route('/category/<int:category_id>')
 def view_category(category_id):
     if 'user' not in session:
         return redirect(url_for('login'))
-
     selected_category = next((c for c in categories if c['id'] == category_id), None)
     if not selected_category:
         return "Category not found", 404
-
     filtered_devices = [d for d in devices if d['category_id'] == category_id]
     return render_template("category_view.html", category=selected_category, devices=filtered_devices)
 
@@ -81,6 +72,7 @@ def login():
             session['user'] = email
             session.setdefault('cart', [])
             session.setdefault('orders', [])
+            session.setdefault('deleted_orders', [])  # store deleted orders
             return redirect(url_for('home'))
         else:
             return render_template('login.html', error="Invalid email or password")
@@ -101,6 +93,7 @@ def logout():
     session.pop('user', None)
     session.pop('cart', None)
     session.pop('orders', None)
+    session.pop('deleted_orders', None)
     return redirect(url_for('login'))
 
 @app.route("/cart")
@@ -108,25 +101,16 @@ def view_cart():
     cart = session.get("cart", [])
     return render_template("cart.html", cart=cart)
 
-
 @app.route("/add-to-cart", methods=["POST"])
 def add_to_cart():
     item_name = request.form.get("name")
     item_price = request.form.get("price")
-
     if not item_name or not item_price:
-        return redirect(url_for("home"))  # Or show an error
-
-    # Initialize cart if not exists
+        return redirect(url_for("home"))
     if "cart" not in session:
         session["cart"] = []
-
-    session["cart"].append({
-        "name": item_name,
-        "price": item_price
-    })
-    session.modified = True  # Important!
-
+    session["cart"].append({"name": item_name, "price": item_price})
+    session.modified = True
     return redirect(url_for("view_cart"))
 
 @app.route('/buy/<int:device_id>', methods=['POST'])
@@ -140,7 +124,8 @@ def buy(device_id):
                 'id': len(orders) + 1,
                 'date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
                 'items': [device],
-                'total': device['price']
+                'total': device['price'],
+                'status': 'Active'
             }
             orders.append(new_order)
             session['orders'] = orders
@@ -158,9 +143,24 @@ def cancel_order(order_id):
     if 'user' not in session:
         return redirect(url_for('login'))
     orders = session.get('orders', [])
+    deleted_orders = session.get('deleted_orders', [])
+    for order in orders:
+        if order['id'] == order_id:
+            order['status'] = 'Deleted'
+            order['deleted_date'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            deleted_orders.append(order)
     updated_orders = [order for order in orders if order['id'] != order_id]
     session['orders'] = updated_orders
+    session['deleted_orders'] = deleted_orders
+    session.modified = True
     return redirect(url_for('orders'))
+
+@app.route('/deleted-orders')
+def deleted_orders_page():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    deleted_orders = session.get('deleted_orders', [])
+    return render_template('deleted_orders.html', deleted_orders=deleted_orders)
 
 if __name__ == '__main__':
     app.run(debug=True)
