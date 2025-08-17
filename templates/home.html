@@ -54,10 +54,11 @@
     .floating { animation: floatBg 8s ease-in-out infinite; }
   </style>
 </head>
-<body class="relative min-h-screen bg-gradient-to-br from-slate-100 to-blue-100 text-gray-800 dark:from-gray-900 dark:to-gray-800 dark:text-gray-100 transition overflow-hidden font-sans">
+<body class="relative min-h-screen bg-gradient-to-br from-slate-100 to-blue-100 text-gray-800 
+dark:from-gray-900 dark:to-gray-800 dark:text-gray-100 transition font-sans">
 
   <!-- Decorative Background -->
-  <div class="absolute inset-0 z-0">
+  <div class="absolute inset-0 z-0 overflow-hidden">
     <div class="absolute inset-0 bg-grid-light dark:hidden"></div>
     <div class="absolute inset-0 hidden dark:block bg-grid-dark"></div>
     <div class="absolute -top-40 -left-40 w-96 h-96 bg-indigo-400/20 rounded-full blur-3xl floating"></div>
@@ -68,7 +69,7 @@
   <div class="relative z-10">
 
     <!-- Notification Bar -->
-    <div id="notificationBar" class="absolute top-0 left-0 right-0   text-black text-sm py-2 px-4 flex justify-between items-center transform -translate-y-full z-50">
+    <div id="notificationBar" class="absolute top-0 left-0 right-0 text-black text-sm py-2 px-4 flex justify-between items-center transform -translate-y-full z-50">
       <span>📢 Welcome to ECL_MicroNet! Check out our latest product.</span>
       <button onclick="hideNotification()" class="ml-4 bg-indigo-500 hover:bg-indigo-400 text-white px-2 py-1 rounded text-xs transition">
         ✕
@@ -143,6 +144,15 @@
     <main class="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
       {% for category in categories %}
       <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur border border-gray-200 dark:border-gray-700 p-6 rounded-2xl shadow-smooth hover:shadow-lg transform hover:-translate-y-2 transition-all duration-300">
+        
+        <!-- Category Image -->
+<div class="w-full h-40 mb-4 rounded-xl overflow-hidden shadow">
+  <img src="{{ url_for('static', filename=category.image) }}" 
+       alt="{{ category.name }}"
+       class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+</div>
+
+
         <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ category.name }}</h2>
         <p class="text-sm text-gray-600 dark:text-gray-300">{{ category.description }}</p>
         <a href="{{ url_for('view_category', category_id=category.id) }}"

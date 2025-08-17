@@ -7,22 +7,25 @@ app.secret_key = 'your_secret_key_here'
 
 # Sample category and device data
 categories = [
-    {"id": 1, "name": "Graphics Cards", "description": "High-performance GPUs for gaming and creative work."},
-    {"id": 2, "name": "Processors", "description": "Latest generation CPUs from Intel and AMD."},
-    {"id": 3, "name": "Memory (RAM)", "description": "DDR4 and DDR5 memory modules."},
-    {"id": 4, "name": "Storage", "description": "Fast and reliable SSDs and HDDs."},
-    {"id": 5, "name": "Motherboards", "description": "Compatible boards for Intel and AMD builds."},
-    {"id": 6, "name": "Head-Set", "description": "Compatible for Intel and AMD builds."}
+    {"id": 1, "name": "Graphics Cards", "description": "High-performance GPUs for gaming and creative work.", "image": "GPU.jpg"},
+    {"id": 2, "name": "Processors", "description": "Latest generation CPUs from Intel and AMD.", "image": "cpu.jpg"},
+    {"id": 3, "name": "Memory (RAM)", "description": "DDR4 and DDR5 memory modules.", "image": "ram.jpg"},
+    {"id": 4, "name": "Storage", "description": "Fast and reliable SSDs and HDDs.", "image": "storage.jpg"},
+    {"id": 5, "name": "Motherboards", "description": "Compatible boards for Intel and AMD builds.", "image": "motherboard.jpg"},
+    {"id": 6, "name": "Head-Set", "description": "Compatible for Intel and AMD builds.", "image": "headset.jpg"}
 ]
 
+
+
 devices = [
-    {"id": 1, "name": "NVIDIA RTX 4070", "type": "Graphics Card", "specs": "12GB GDDR6X", "price": "\u20b133,999", "is_favorite": False, "category_id": 1},
-    {"id": 2, "name": "Intel i7-13700K", "type": "Processor", "specs": "16-Core, 24-Thread", "price": "\u20b122,499", "is_favorite": False, "category_id": 2},
-    {"id": 3, "name": "Corsair Vengeance 16GB", "type": "RAM", "specs": "DDR5 5600MHz", "price": "\u20b14,999", "is_favorite": False, "category_id": 3},
-    {"id": 4, "name": "Samsung 980 PRO 1TB", "type": "SSD", "specs": "PCIe 4.0 NVMe", "price": "\u20b17,299", "is_favorite": False, "category_id": 4},
-    {"id": 5, "name": "ASUS ROG Strix B650E", "type": "Motherboard", "specs": "AM5, DDR5", "price": "\u20b113,999", "is_favorite": False, "category_id": 5},
-    {"id": 6, "name": "Razer Kraken", "type": "Head-Set", "specs": "7.1 Surround Sound", "price": "\u20b15,999", "is_favorite": False, "category_id": 6}
+    {"id": 1, "name": "NVIDIA RTX 4070", "type": "Graphics Card", "specs": "12GB GDDR6X", "price": "₹33,999", "is_favorite": False, "category_id": 1, "image": "images/devices/rtx4070.jpg"},
+    {"id": 2, "name": "Intel i7-13700K", "type": "Processor", "specs": "16-Core, 24-Thread", "price": "₹22,499", "is_favorite": False, "category_id": 2, "image": "images/devices/i7-13700k.jpg"},
+    {"id": 3, "name": "Corsair Vengeance 16GB", "type": "RAM", "specs": "DDR5 5600MHz", "price": "₹4,999", "is_favorite": False, "category_id": 3, "image": "images/devices/corsair-vengeance.jpg"},
+    {"id": 4, "name": "Samsung 980 PRO 1TB", "type": "SSD", "specs": "PCIe 4.0 NVMe", "price": "₹7,299", "is_favorite": False, "category_id": 4, "image": "images/devices/samsung-980pro.jpg"},
+    {"id": 5, "name": "ASUS ROG Strix B650E", "type": "Motherboard", "specs": "AM5, DDR5", "price": "₹13,999", "is_favorite": False, "category_id": 5, "image": "images/devices/asus-rog-strix.jpg"},
+    {"id": 6, "name": "Razer Kraken", "type": "Head-Set", "specs": "7.1 Surround Sound", "price": "₹5,999", "is_favorite": False, "category_id": 6, "image": "images/devices/razer-kraken.jpg"}
 ]
+
 
 USER_CREDENTIALS = {
     "admin@example.com": "admin123",
