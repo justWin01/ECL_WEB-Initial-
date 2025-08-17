@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Search Results - ECL_MicroNet</title>
-    <!-- Icon -->
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='ecl logo.jpg') }}">
+  <!-- Icon -->
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='ecl logo.jpg') }}">
 
   <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
   <script>
@@ -31,9 +31,9 @@
   <!-- Header -->
   <header class="bg-white/90 dark:bg-gray-800/80 backdrop-blur sticky top-0 z-50 shadow-sm">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-6 py-4 gap-4">
-      <a href="/" class="flex items-center gap-3 group transition-all duration-300">
+      <a href="{{ url_for('home') }}" class="flex items-center gap-3 group transition-all duration-300">
         <div class="relative backdrop-blur-md bg-white/30 dark:bg-white/10 shadow-lg rounded-full p-1 ring-2 ring-white dark:ring-gray-700">
-          <img src="/static/SCLLogo.jpg" alt="ECL_MicroNet Logo" class="h-10 w-10 object-cover rounded-full transition-transform group-hover:scale-110 duration-300">
+          <img src="{{ url_for('static', filename='SCLLogo.jpg') }}" alt="ECL_MicroNet Logo" class="h-10 w-10 object-cover rounded-full transition-transform group-hover:scale-110 duration-300">
         </div>
         <span class="text-2xl font-semibold tracking-tight text-gray-800 dark:text-white group-hover:text-indigo-500 transition-colors duration-300">
           ECL<span class="text-indigo-500">_MicroNet</span>
@@ -52,18 +52,15 @@
     </div>
   </header>
 
- 
-
   <!-- Matched Categories -->
-  <section class="mb-10">
-    
-  <br>
+  <section class="mb-10 mt-6">
     {% if categories %}
-      <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 gap-1">
+      <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 gap-4">
         {% for cat in categories %}
+          <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow">
             <h1 class="text-lg font-bold text-indigo-600 dark:text-indigo-400">{{ cat.name }}</h1>
             <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">{{ cat.description }}</p>
-          </a>
+          </div>
         {% endfor %}
       </div>
     {% else %}
@@ -85,19 +82,27 @@
             <div class="text-yellow-400 text-sm mb-1">★★★★★</div>
             <p class="text-sm text-gray-600 dark:text-gray-300">{{ device.specs }}</p>
             <p class="text-base font-bold text-emerald-500 mt-2">{{ device.price }}</p>
+
             <div class="mt-4 flex gap-2 flex-wrap">
+              <!-- Favorite -->
               <form action="{{ url_for('favorite', device_id=device.id) }}" method="POST">
                 <button type="submit"
                   class="px-4 py-2 rounded text-sm font-medium transition {{ 'bg-red-500 text-white hover:bg-red-600' if device.is_favorite else 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-600 dark:text-white dark:hover:bg-gray-500' }}">
                   {{ '★ Favorited' if device.is_favorite else '☆ Add to Favorites' }}
                 </button>
               </form>
-              <form action="{{ url_for('add_to_cart', device_id=device.id) }}" method="POST">
+
+              <!-- Add to Cart -->
+              <form action="{{ url_for('add_to_cart') }}" method="POST">
+                <input type="hidden" name="name" value="{{ device.name }}">
+                <input type="hidden" name="price" value="{{ device.price }}">
                 <button type="submit"
                   class="px-4 py-2 bg-yellow-400 text-gray-900 rounded text-sm font-medium hover:bg-yellow-500 transition">
                   🛒 Add to Cart
                 </button>
               </form>
+
+              <!-- Buy -->
               <form action="{{ url_for('buy', device_id=device.id) }}" method="POST" onsubmit="return showLoading(this)">
                 <button class="px-4 py-2 bg-indigo-500 text-white rounded text-sm font-medium hover:bg-indigo-600 transition">
                   Buy
