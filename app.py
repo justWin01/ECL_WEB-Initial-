@@ -7,7 +7,7 @@ app.secret_key = 'your_secret_key_here'
 
 # Sample category and device data
 categories = [
-    {"id": 1, "name": "Graphics Cards", "description": "High-performance GPUs for gaming and creative work.", "image": "GPU.jpg"},
+    {"id": 1, "name": "Graphics Cards", "description": "High-performance GPUs for gaming and...", "image": "GPU.jpg"},
     {"id": 2, "name": "Processors", "description": "Latest generation CPUs from Intel and AMD.", "image": "CPU.jpg"},
     {"id": 3, "name": "Memory (RAM)", "description": "DDR4 and DDR5 memory modules.", "image": "RAM.jpg"},
     {"id": 4, "name": "Storage", "description": "Fast and reliable SSDs and HDDs.", "image": "STORAGE.jpg"},
