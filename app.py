@@ -18,12 +18,12 @@ categories = [
 
 
 devices = [
-    {"id": 1, "name": "NVIDIA RTX 4070", "type": "Graphics Card", "specs": "12GB GDDR6X", "price": "₹33,999", "is_favorite": False, "category_id": 1, "image": "images/devices/rtx4070.jpg"},
-    {"id": 2, "name": "Intel i7-13700K", "type": "Processor", "specs": "16-Core, 24-Thread", "price": "₹22,499", "is_favorite": False, "category_id": 2, "image": "images/devices/i7-13700k.jpg"},
-    {"id": 3, "name": "Corsair Vengeance 16GB", "type": "RAM", "specs": "DDR5 5600MHz", "price": "₹4,999", "is_favorite": False, "category_id": 3, "image": "images/devices/corsair-vengeance.jpg"},
-    {"id": 4, "name": "Samsung 980 PRO 1TB", "type": "SSD", "specs": "PCIe 4.0 NVMe", "price": "₹7,299", "is_favorite": False, "category_id": 4, "image": "images/devices/samsung-980pro.jpg"},
-    {"id": 5, "name": "ASUS ROG Strix B650E", "type": "Motherboard", "specs": "AM5, DDR5", "price": "₹13,999", "is_favorite": False, "category_id": 5, "image": "images/devices/asus-rog-strix.jpg"},
-    {"id": 6, "name": "Razer Kraken", "type": "Head-Set", "specs": "7.1 Surround Sound", "price": "₹5,999", "is_favorite": False, "category_id": 6, "image": "images/devices/razer-kraken.jpg"}
+    {"id": 1, "name": "NVIDIA RTX 4070", "type": "Graphics Card", "specs": "12GB GDDR6X", "price": "PhP33,999", "is_favorite": False, "category_id": 1, "image": "images/devices/rtx4070.jpg"},
+    {"id": 2, "name": "Intel i7-13700K", "type": "Processor", "specs": "16-Core, 24-Thread", "price": "PhP22,499", "is_favorite": False, "category_id": 2, "image": "images/devices/i7-13700k.jpg"},
+    {"id": 3, "name": "Corsair Vengeance 16GB", "type": "RAM", "specs": "DDR5 5600MHz", "price": "PhP4,999", "is_favorite": False, "category_id": 3, "image": "images/devices/corsair-vengeance.jpg"},
+    {"id": 4, "name": "Samsung 980 PRO 1TB", "type": "SSD", "specs": "PCIe 4.0 NVMe", "price": "PhP7,299", "is_favorite": False, "category_id": 4, "image": "images/devices/samsung-980pro.jpg"},
+    {"id": 5, "name": "ASUS ROG Strix B650E", "type": "Motherboard", "specs": "AM5, DDR5", "price": "PhP13,999", "is_favorite": False, "category_id": 5, "image": "images/devices/asus-rog-strix.jpg"},
+    {"id": 6, "name": "Razer Kraken", "type": "Head-Set", "specs": "7.1 Surround Sound", "price": "PhP5,999", "is_favorite": False, "category_id": 6, "image": "images/devices/razer-kraken.jpg"}
 ]
 
 
