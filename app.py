@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from datetime import datetime
-from flask import session, redirect, url_for, request
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here'
+app.secret_key = 'your_secret_key_here'  # change in production!
 
-# Sample category and device data
+# ----------------------
+# Sample Data
+# ----------------------
 categories = [
     {"id": 1, "name": "Graphics Cards", "description": "High-performance GPUs for gaming and...", "image": "GPU.jpg"},
     {"id": 2, "name": "Processors", "description": "Latest generation CPUs from Intel and AMD.", "image": "CPU.jpg"},
@@ -14,8 +15,6 @@ categories = [
     {"id": 5, "name": "Motherboards", "description": "Compatible boards for Intel and AMD builds.", "image": "MOTHERBOARD.jpg"},
     {"id": 6, "name": "Head-Set", "description": "Compatible for Intel and AMD builds.", "image": "HEADSET.jpg"}
 ]
-
-
 
 devices = [
     {"id": 1, "name": "NVIDIA RTX 4070", "type": "Graphics Card", "specs": "12GB GDDR6X", "price": "PhP33,999", "is_favorite": False, "category_id": 1, "image": "images/devices/rtx4070.jpg"},
@@ -26,13 +25,15 @@ devices = [
     {"id": 6, "name": "Razer Kraken", "type": "Head-Set", "specs": "7.1 Surround Sound", "price": "PhP5,999", "is_favorite": False, "category_id": 6, "image": "images/devices/razer-kraken.jpg"}
 ]
 
-
 USER_CREDENTIALS = {
     "admin@example.com": "admin123",
     "sherwin@example.com": "scl2025",
     "tester@example.com": "test456"
 }
 
+# ----------------------
+# Routes
+# ----------------------
 @app.route('/')
 def home():
     if 'user' not in session:
@@ -49,12 +50,7 @@ def search():
     query = request.args.get('search', '').lower()
     matched_categories = [c for c in categories if query in c['name'].lower()]
     matched_devices = [d for d in devices if query in d['name'].lower()]
-    return render_template(
-        'search_results.html',
-        categories=matched_categories,
-        devices=matched_devices,
-        query=query
-    )
+    return render_template('search_results.html', categories=matched_categories, devices=matched_devices, query=query)
 
 @app.route('/category/<int:category_id>')
 def view_category(category_id):
@@ -75,7 +71,7 @@ def login():
             session['user'] = email
             session.setdefault('cart', [])
             session.setdefault('orders', [])
-            session.setdefault('deleted_orders', [])  # store deleted orders
+            session.setdefault('deleted_orders', [])
             return redirect(url_for('home'))
         else:
             return render_template('login.html', error="Invalid email or password")
@@ -93,12 +89,12 @@ def favorite(device_id):
 
 @app.route('/logout')
 def logout():
-    session.pop('user', None)
-    session.pop('cart', None)
-    session.pop('orders', None)
-    session.pop('deleted_orders', None)
+    session.clear()
     return redirect(url_for('login'))
 
+# ----------------------
+# Cart
+# ----------------------
 @app.route("/cart")
 def view_cart():
     cart = session.get("cart", [])
@@ -108,14 +104,32 @@ def view_cart():
 def add_to_cart():
     item_name = request.form.get("name")
     item_price = request.form.get("price")
+
     if not item_name or not item_price:
         return redirect(url_for("home"))
+
+    # Initialize cart if not exists
     if "cart" not in session:
         session["cart"] = []
+
     session["cart"].append({"name": item_name, "price": item_price})
     session.modified = True
+
     return redirect(url_for("view_cart"))
 
+
+@app.route("/remove-from-cart/<int:index>", methods=["POST"])
+def remove_from_cart(index):
+    cart = session.get("cart", [])
+    if 0 <= index < len(cart):
+        cart.pop(index)
+        session["cart"] = cart
+        session.modified = True
+    return redirect(url_for("view_cart"))
+
+# ----------------------
+# Orders
+# ----------------------
 @app.route('/buy/<int:device_id>', methods=['POST'])
 def buy(device_id):
     if 'user' not in session:
@@ -152,8 +166,7 @@ def cancel_order(order_id):
             order['status'] = 'Deleted'
             order['deleted_date'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             deleted_orders.append(order)
-    updated_orders = [order for order in orders if order['id'] != order_id]
-    session['orders'] = updated_orders
+    session['orders'] = [o for o in orders if o['id'] != order_id]
     session['deleted_orders'] = deleted_orders
     session.modified = True
     return redirect(url_for('orders'))
@@ -162,8 +175,10 @@ def cancel_order(order_id):
 def deleted_orders_page():
     if 'user' not in session:
         return redirect(url_for('login'))
-    deleted_orders = session.get('deleted_orders', [])
-    return render_template('deleted_orders.html', deleted_orders=deleted_orders)
+    return render_template('deleted_orders.html', deleted_orders=session.get('deleted_orders', []))
 
+# ----------------------
+# Run
+# ----------------------
 if __name__ == '__main__':
     app.run(debug=True)

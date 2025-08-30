@@ -68,14 +68,6 @@ dark:from-gray-900 dark:to-gray-800 dark:text-gray-100 transition font-sans">
 
   <div class="relative z-10">
 
-    <!-- Notification Bar -->
-    <div id="notificationBar" class="absolute top-0 left-0 right-0 text-black text-sm py-2 px-4 flex justify-between items-center transform -translate-y-full z-50">
-      <span>📢 Welcome to ECL_MicroNet! Check out our latest product.</span>
-      <button onclick="hideNotification()" class="ml-4 bg-indigo-500 hover:bg-indigo-400 text-white px-2 py-1 rounded text-xs transition">
-        ✕
-      </button>
-    </div>
-
     <!-- Header -->
     <header id="mainHeader" class="bg-white/60 dark:bg-gray-800/50 backdrop-blur-xl sticky top-0 z-40 shadow-glass transition-all duration-300">
       <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-6 py-4 gap-4">
@@ -202,22 +194,6 @@ dark:from-gray-900 dark:to-gray-800 dark:text-gray-100 transition font-sans">
       bar.classList.remove('slide-down');
       bar.classList.add('slide-up');
       setTimeout(() => { bar.style.display = 'none'; }, 600);
-    }
-
-    // Dropdown Notifications
-    function toggleNotifications() {
-      document.getElementById("notifDropdown").classList.toggle("hidden");
-      document.getElementById("notifDot").classList.add("hidden");
-    }
-    function addNotification(message) {
-      const notifList = document.getElementById("notifList");
-      const placeholder = notifList.querySelector("p");
-      if (placeholder) placeholder.remove();
-      const item = document.createElement("div");
-      item.className = "p-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer";
-      item.textContent = message;
-      notifList.prepend(item);
-      document.getElementById("notifDot").classList.remove("hidden");
     }
   </script>
 </body>

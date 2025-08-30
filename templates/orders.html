@@ -62,26 +62,24 @@
       </form>
 
       <!-- Buttons -->
-     <!-- Buttons -->
-<div class="flex items-center gap-3">
-  <a href="{{ url_for('home') }}"
-     class="inline-flex items-center gap-2 px-3 py-1 text-sm rounded bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-400 dark:hover:bg-gray-600 shadow transition">
-    ← Back
-  </a>
+      <div class="flex items-center gap-3">
+        <a href="{{ url_for('home') }}"
+           class="inline-flex items-center gap-2 px-3 py-1 text-sm rounded bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-400 dark:hover:bg-gray-600 shadow transition">
+          ← Back
+        </a>
 
-  <!-- Deleted Orders Button -->
-  <a href="{{ url_for('deleted_orders') }}"
-     class="inline-flex items-center gap-2 px-3 py-1 text-sm rounded bg-red-500/80 hover:bg-red-600/80 text-white shadow transition">
-    🗑 Deleted Orders
-  </a>
+        <!-- Deleted Orders Button -->
+        <a href="{{ url_for('deleted_orders_page') }}"
+           class="inline-flex items-center gap-2 px-3 py-1 text-sm rounded bg-red-500/80 hover:bg-red-600/80 text-white shadow transition">
+          🗑 Deleted Orders
+        </a>
 
-  <!-- Dark Mode Toggle -->
-  <button onclick="toggleDarkMode()"
-      class="bg-gray-200 dark:bg-gray-600 text-xs px-2 py-1 rounded hover:shadow transition">
-    🌙
-  </button>
-</div>
-
+        <!-- Dark Mode Toggle -->
+        <button onclick="toggleDarkMode()"
+            class="bg-gray-200 dark:bg-gray-600 text-xs px-2 py-1 rounded hover:shadow transition">
+          🌙
+        </button>
+      </div>
     </div>
   </header>
 
@@ -101,23 +99,23 @@
             <!-- Order Header -->
             <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3 mb-4">
               <div>
-                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Order #{{ order.id }}</h2>
-                <p class="text-xs text-gray-500">{{ order.date }}</p>
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Order #{{ order['id'] }}</h2>
+                <p class="text-xs text-gray-500">{{ order['date'] }}</p>
               </div>
 
               <!-- Status Badge -->
               <span class="px-3 py-1 rounded-full text-xs font-semibold
-                {% if order.status == 'Processing' %}
+                {% if order['status'] == 'Processing' %}
                   bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300
-                {% elif order.status == 'Shipped' %}
+                {% elif order['status'] == 'Shipped' %}
                   bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300
-                {% elif order.status == 'Cancelled' %}
+                {% elif order['status'] == 'Cancelled' %}
                   bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300
                 {% else %}
                   bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300
                 {% endif %}
               ">
-                {{ order.status }}
+                {{ order['status'] }}
               </span>
             </div>
 
@@ -125,16 +123,16 @@
             <ul class="list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 space-y-1 mb-4">
               {% for item in order['items'] %}
                 <li>
-                  <span class="font-medium">{{ item.name }}</span> — 
-                  <span class="text-gray-500 dark:text-gray-400">{{ item.price }}</span>
+                  <span class="font-medium">{{ item['name'] }}</span> — 
+                  <span class="text-gray-500 dark:text-gray-400">{{ item['price'] }}</span>
                 </li>
               {% endfor %}
             </ul>
 
             <!-- Footer -->
             <div class="flex justify-between items-center text-sm">
-              <div class="text-emerald-600 dark:text-emerald-400 font-bold">Total: {{ order.total }}</div>
-              <form method="POST" action="{{ url_for('cancel_order', order_id=order.id) }}">
+              <div class="text-emerald-600 dark:text-emerald-400 font-bold">Total: {{ order['total'] }}</div>
+              <form method="POST" action="{{ url_for('cancel_order', order_id=order['id']) }}">
                 <button type="submit" onclick="return confirm('Are you sure you want to cancel this order?')"
                   class="text-red-600 dark:text-red-400 hover:underline hover:text-red-800 dark:hover:text-red-300 transition">
                   ❌ Cancel
@@ -163,3 +161,4 @@
 
 </body>
 </html>
+q
