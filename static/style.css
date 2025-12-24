@@ -1,0 +1,54 @@
+/* Landing Page */
+.landing-body {
+    background: #eef2ff;
+    font-family: Arial, sans-serif;
+}
+
+.landing-header {
+    text-align: center;
+    margin-top: 60px;
+}
+
+.subtitle {
+    color: #555;
+}
+
+.landing-content {
+    max-width: 900px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+.features {
+    display: flex;
+    gap: 20px;
+    margin: 40px 0;
+}
+
+.feature-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    flex: 1;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.get-started-btn {
+    display: inline-block;
+    padding: 14px 30px;
+    background: #2563eb;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Admin Button */
+.btn-admin {
+    background: #9333ea;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
