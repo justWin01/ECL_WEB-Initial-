@@ -21,7 +21,7 @@ body {
 
 .hero p {
     font-size: 20px;
-    color: #333;
+    color: #333333;
 }
 
 .btn-primary {
@@ -70,6 +70,7 @@ body {
 .portal-container {
     text-align: center;
     padding: 80px 20px;
+    color: #273775;
 }
 
 .portal-grid {
@@ -86,7 +87,7 @@ body {
     background: white;
     border-radius: 14px;
     text-decoration: none;
-    color: black;
+    color: rgb(0, 0, 0);
     box-shadow: 0 6px 16px rgba(0,0,0,0.1);
     transition: 0.2s;
 }
