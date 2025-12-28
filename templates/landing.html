@@ -2,68 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ECL-Micro Network & Data Solutions</title>
+    <title>Admin Login</title>
     <link rel="stylesheet" href="../static/style.css">
 </head>
-<body class="landing-body">
+<body class="login-body">
 
-    <!-- HERO -->
-    <section class="hero">
-        <h1>ECL-Micro Network & Data Solutions</h1>
-        <p>Your Trusted IT, Networking & Data Service Provider</p>
-        <a href="home.html" class="btn-primary">Get Started</a>
-    </section>
+    <a href="home.html" class="back-link">← Back to Portal Selection</a>
 
-    <!-- ABOUT -->
-    <section class="about">
-        <div class="about-container">
-            <h2 class="about-title">About the Company</h2>
-            <p class="about-subtitle">
-                Delivering modern IT innovations with reliability, precision, and excellence.
-            </p>
-    
-            <div class="about-content">
-                <p>
-                    ECL-Micro Network & Data Solutions specializes in providing high-quality 
-                    technology services including network installation, IT support, 
-                    data solutions, and system maintenance. 
-                </p>
-                <p>
-                    With a commitment to reliability and professionalism, our company helps 
-                    businesses, institutions, and individuals manage their digital operations 
-                    smoothly and efficiently. We combine technical expertise with customer-focused 
-                    service to deliver solutions tailored to your needs.
-                </p>
-            </div>
-        </div>
-    </section>
-    
+    <div class="login-card">
+        <div class="login-icon purple"></div>
 
-    <!-- ROLES / SERVICES -->
-    <section class="features">
-        <h2>What We Do</h2>
+        <h2>Admin Portal</h2>
+        <p>Welcome back!</p>
 
-        <div class="feature-grid">
-            <div class="feature-card">
-                <h3>Network Setup & Maintenance</h3>
-                <p>We install, configure, and maintain network systems for smooth operations.</p>
+        <form>
+            <label>Email Address</label>
+            <input type="email" required>
+
+            <label>Password</label>
+            <input type="password" required>
+
+            <div class="remember-row">
+                <label><input type="checkbox"> Remember me</label>
+                <a href="#" class="forgot-link">Forgot password?</a>
             </div>
 
-            <div class="feature-card">
-                <h3>IT Support & Troubleshooting</h3>
-                <p>Our team provides technical assistance for hardware and software issues.</p>
-            </div>
+            <button class="btn-primary" type="button">Sign In</button>
+        </form>
 
-            <div class="feature-card">
-                <h3>Data Solutions</h3>
-                <p>Secure data handling, backup services, system integration, and management.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <p>© 2025 ECL-Micro Network & Data Solutions. All rights reserved.</p>
-    </footer>
+        <p class="signup-text">Only admins can create accounts.</p>
+    </div>
 
 </body>
 </html>
