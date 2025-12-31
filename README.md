@@ -1,63 +1,90 @@
-Integrated Service Request, Inventory, and Client Payment Transaction System
-for ECL-Micro Network and Data Solutions
+# Integrated Service Request, Inventory, and Client Payment Transaction System  
+### ECL-Micro Network & Data Solutions
 
 This repository presents a web-based integrated system developed for ECL-Micro Network and Data Solutions. The system automates the management of service requests, inventory, and client payment transactions, replacing traditional manual processes with an efficient computerized solution.
 
-This project represents a possible system output for ECL-Micro Network and Data Solutions, designed to support daily operations, improve data accuracy, and enhance decision-making.
+This project serves as a system output for ECL-Micro Network and Data Solutions, supporting daily operations, improving data accuracy, streamlining workflows, and enhancing decision-making.
 
-Project Objectives
-General Objective
+---
 
+## 1. Project Overview
+
+The Integrated Service Request, Inventory, and Client Payment Transaction System is designed to centralize the company’s core operations into a single accessible platform. Prior workflows relied heavily on manual recording and face-to-face transactions, which led to delays, data inconsistencies, and inefficiencies. This system addresses these challenges by digitizing all service-related processes.
+
+---
+
+## 2. Project Objectives
+
+### General Objective
 To develop an integrated web-based system that automates and manages service requests, inventory, and client payment transactions for ECL-Micro Network and Data Solutions, improving operational efficiency and record management.
 
-Specific Objectives
+### Specific Objectives
+- To design and implement a service request module that enables clients to submit service reports and allows staff and administrators to process and monitor requests efficiently.
+- To develop an inventory tracking and management system that ensures accurate monitoring of products, parts, and stock levels.
+- To record and monitor client payment transactions effectively.
+- To generate comprehensive reports on service requests, inventory status, and client payment transactions to support management decision-making.
+- To implement role-based access control for Admins, Staff, and Clients.
 
-To design and implement a service request module that enables clients to submit service reports and allows staff and administrators to process and monitor requests efficiently.
+---
 
-To develop an inventory tracking and management system that ensures accurate monitoring of products, parts, and stock levels.
+## 3. System Scope
 
-To generate comprehensive reports on service requests, inventory status, and client payment transactions to support management decision-making.
+The scope of this project is limited to developing an internal web-based system tailored specifically for ECL-Micro Network and Data Solutions.
 
-System Scope
+### Core Functionalities
+- Client service request submission.
+- Service request monitoring and updating.
+- Inventory recording, stock tracking, and updating.
+- Client payment transaction recording.
+- Basic reporting tools for service requests, inventory status, and payments.
+- Role-based access for Admin, Staff, and Clients.
 
-This system focuses on the development of an Integrated Service Request, Inventory, and Client Payment Transaction System tailored specifically for ECL-Micro Network and Data Solutions.
+The system aims to eliminate manual processes and centralize workflow management.
 
-The system supports the following core functions:
+---
 
-Submission and management of client service requests
+## 4. System Limitations
 
-Inventory recording, tracking, and updating of stock levels
+- The system is designed exclusively for internal use and does not support multi-branch integration.
+- Mobile application support is not included.
+- No third-party API integrations are implemented.
+- System evaluation focuses only on three main modules:
+  - Service Request Management  
+  - Inventory Tracking  
+  - Payment Transaction Recording  
+- Advanced analytics, data visualization dashboards, and automated notifications may not be fully implemented depending on project scope.
+- Enterprise-grade scalability and load testing are excluded.
 
-Recording and monitoring of client payment transactions
+---
 
-Role-based access for Admin, Staff, and Clients
+## 5. Target Users
 
-Generation of basic operational reports
+- **Admin** – Manages inventory, staff accounts, payments, and system reports.
+- **Staff / Technicians** – Handles assigned service requests, updates task status, and assists in maintenance activities.
+- **Clients** – Submits service requests, views progress, and makes payments.
 
-The primary goal is to replace manual processes with a centralized digital platform that reduces errors, organizes records, and improves overall operational efficiency.
+---
 
-System Limitations
+## 6. Key Features
 
-Despite its functionality, the system has the following limitations:
+- Web-based service request submission and tracking.
+- Real-time inventory management with stock updating.
+- Centralized payment transaction monitoring.
+- Admin dashboard with reports summary.
+- User account management with role-based permissions.
+- Organized and searchable service records.
 
-The system is designed exclusively for internal use within ECL-Micro Network and Data Solutions and is not connected to other branches or external systems.
+---
 
-Advanced features such as mobile application support, third-party integrations, and automated analytics are not included.
+## 7. Technology Stack
 
-System evaluation focuses only on its basic functionalities, namely:
+- **Frontend:** HTML, CSS, JavaScript  
+- **Backend:** Python (Flask) or PHP (depending on version used)  
+- **Database:** MySQL / MariaDB  
+- **Styling:** CSS, Tailwind (optional), Bootstrap (optional)  
+- **Version Control:** Git / GitHub  
 
-Service request management
+---
 
-Inventory tracking
+## 8. System Architecture (Simplified)
 
-Client payment transaction recording
-
-Large-scale deployment, performance stress testing, and enterprise-level scalability are outside the scope of this project.
-
-Target Users
-
-Admin – Manages inventory, staff assignments, payments, and reports
-
-Staff/Technicians – Handles assigned service requests and updates task status
-
-Clients – Submits service requests, checks status, and makes payments
