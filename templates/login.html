@@ -1,30 +1,49 @@
-<div class="portal-container">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Portal Selection</title>
 
-    <h1>ECL-Micro Network & Data Solutions</h1>
-    <p>Integrated System Portal</p>
+    <!-- CSS -->
+    <link rel="stylesheet" href="../static/base.css">
+    <link rel="stylesheet" href="../static/portal.css">
+</head>
 
-    <div class="portal-grid">
+<body class="portal-body">
 
-        <div class="portal-card">
-            <a href="/login?type=client">
-                <img src="" class="icon">
-                <h3>Client Portal</h3>
-            </a>
+    <div class="portal-container">
+
+        <h1>ECL-Micro Network & Data Solutions</h1>
+        <p>Integrated System Portal</p>
+
+        <div class="portal-grid">
+
+            <div class="portal-card">
+                <a href="/login?type=client">
+                    <div class="icon-circle blue"></div>
+                    <h3>Client Portal</h3>
+                    <p>Request services and view updates</p>
+                </a>
+            </div>
+
+            <div class="portal-card">
+                <a href="/login?type=staff">
+                    <div class="icon-circle green"></div>
+                    <h3>ECL Staff Portal</h3>
+                    <p>Manage tasks and service reports</p>
+                </a>
+            </div>
+
+            <div class="portal-card">
+                <a href="/login?type=admin">
+                    <div class="icon-circle grey"></div>
+                    <h3>ECL Admin Portal</h3>
+                    <p>System management panel</p>
+                </a>
+            </div>
+
         </div>
-
-        <div class="portal-card">
-            <a href="/login?type=staff">
-                <img src="" class="icon">
-                <h3>ECL Staff Portal</h3>
-            </a>
-        </div>
-
-        <div class="portal-card">
-            <a href="/login?type=admin">
-                <img src="" class="icon">
-                <h3>ECL Admin Portal</h3>
-            </a>
-        </div>
-
     </div>
-</div>
+
+</body>
+</html>
