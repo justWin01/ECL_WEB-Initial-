@@ -1,0 +1,44 @@
+.portal-body {
+    background: #eef3ff;
+}
+
+.portal-container {
+    text-align: center;
+    padding: 80px 20px;
+    color: #273775;
+}
+
+.portal-grid {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.portal-card {
+    width: 300px;
+    padding: 30px;
+    background: white;
+    border-radius: 14px;
+    text-decoration: none;
+    color: #000;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    transition: 0.2s;
+}
+
+.portal-card:hover {
+    transform: translateY(-6px);
+}
+
+.icon-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.blue { background: #b4d2ff; }
+.green { background: #c0f2d2; }
+.grey { background: grey; }

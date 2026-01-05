@@ -1,0 +1,22 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    margin-bottom: 18px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.btn-primary {
+    padding: 12px 24px;
+    background: #1e4cff;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    display: inline-block;
+}

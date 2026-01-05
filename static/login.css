@@ -1,0 +1,45 @@
+.login-body {
+    background: #eef3ff;
+}
+
+.back-link {
+    margin: 20px;
+    display: inline-block;
+    color: #1e4cff;
+    text-decoration: none;
+}
+
+.login-card {
+    width: 420px;
+    background: white;
+    padding: 40px;
+    margin: 50px auto;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.login-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.remember-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.forgot-link {
+    color: #1e4cff;
+    text-decoration: none;
+}
+
+.signup-text {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+}
