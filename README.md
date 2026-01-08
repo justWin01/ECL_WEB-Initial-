@@ -78,8 +78,8 @@ The system aims to eliminate manual processes and centralize workflow management
 
 ## 7. Technology Stack
 
-- **Frontend:** HTML, CSS, JavaScript  
-- **Backend:** Python (Flask) or PHP (depending on version used)  
+- **Frontend:** Angular , laravel or react native (depending)  
+- **Backend:** Python (Flask other ) or PHP (depending on version used)  
 - **Database:** MySQL / MariaDB  
 - **Styling:** CSS, Tailwind (optional), Bootstrap (optional)  
 - **Version Control:** Git / GitHub  
