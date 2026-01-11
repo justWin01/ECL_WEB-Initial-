@@ -3,7 +3,7 @@
 
 This repository presents a web-based integrated system developed for ECL-Micro Network and Data Solutions. The system automates the management of service requests, inventory, and client payment transactions, replacing traditional manual processes with an efficient computerized solution.
 
-This project serves as a system output for ECL-Micro Network and Data Solutions, supporting daily operations, improving data accuracy, streamlining workflows, and enhancing decision-making.
+This project serves as a initial system output for ECL-Micro Network and Data Solutions. This also the initial design for  ECL-Micro Network and Data Solutions
 
 ---
 
