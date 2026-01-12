@@ -90,3 +90,5 @@ The system aims to eliminate manual processes and centralize workflow management
 
 ECL-Micro Network & Data Solutions is a locally established information technology service provider based in Purok 8, Crossing Gabi, Compostela, Davao de Oro. Founded in 2020, the company has accumulated six (6) years of service experience in delivering reliable IT, networking, and data-related solutions to individuals and small organizations within the community.
 
+The company specializes in computer repair, network installation and maintenance, troubleshooting, and basic data solutions. Since its establishment, ECL-Micro Network & Data Solutions has served approximately 150 personal clients, reflecting steady growth and trust from its customer base. Operations are currently managed by a compact but efficient team consisting of four (4) staff members, including technical support.
+
