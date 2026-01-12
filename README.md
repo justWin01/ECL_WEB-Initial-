@@ -86,5 +86,7 @@ The system aims to eliminate manual processes and centralize workflow management
 
 ---
 
-## 8. System Architecture (Simplified)
+## 8. Company Background: ECL-Micro Network & Data Solutions
+
+ECL-Micro Network & Data Solutions is a locally established information technology service provider based in Purok 8, Crossing Gabi, Compostela, Davao de Oro. Founded in 2020, the company has accumulated six (6) years of service experience in delivering reliable IT, networking, and data-related solutions to individuals and small organizations within the community.
 
