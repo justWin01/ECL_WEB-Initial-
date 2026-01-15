@@ -39,7 +39,7 @@ The scope of this project is limited to developing an internal web-based system 
 - Basic reporting tools for service requests, inventory status, and payments.
 - Role-based access for Admin, Staff, and Clients.
 
-The system aims to eliminate manual processes and centralize workflow management.
+The system aims to eliminate manual processes like paper based and centralize workflow management.
 
 ---
 
