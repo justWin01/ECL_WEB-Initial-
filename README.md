@@ -9,7 +9,7 @@ This project serves as a initial system output for ECL-Micro Network and Data So
 
 ## 1. Project Overview
 
-The Integrated Service Request, Inventory, and Client Payment Transaction System is designed to centralize the company’s core operations into a single accessible platform. Prior workflows relied heavily on manual recording and face-to-face transactions, which led to delays, data inconsistencies, and inefficiencies. This system addresses these challenges by digitizing all service-related processes.
+The Integrated Service Request, Inventory, and Client Payment Transaction System is designed to centralize the company’s core operations into a single accessible platform. Prior workflows relied heavily on manual recording,face-to-face transactions and Paper based process, which led to delays, data inconsistencies, and inefficiencies. This system addresses these challenges by digitizing all service-related processes.
 
 ---
 
