@@ -80,13 +80,12 @@ This system is intended **exclusively for internal use**.
 - Searchable service records 
 ---
 
-## 7. Technology Stack
-
-- **Frontend:** Angular , laravel or react native (depending)  
-- **Backend:** Python (Flask other ) or PHP (depending on version used)  
-- **Database:** MySQL / MariaDB  
-- **Styling:** CSS, Tailwind (optional), Bootstrap (optional)  
-- **Version Control:** Git / GitHub  
+##  Technology Stack
+Frontend: Angular | Laravel | React Native
+Backend: Flask (Python) | PHP
+Database: MySQL / MariaDB
+Styling: CSS | Tailwind CSS | Bootstrap
+Version Control: Git & GitHub
 
 ---
 
