@@ -100,6 +100,12 @@ The company specializes in computer repair, network installation and maintenance
 
 ## 7. Technology Stack
 
+In initial frontend we use this following:
+-Html for structure
+-Css for design
+-JavaScript for interactive
+
+In final web tech is this following:
 - **Frontend:** Angular , laravel or react native (depending)  
 - **Backend:** Python (Flask other ) or PHP (depending on version used)  
 - **Database:** MySQL / MariaDB  
