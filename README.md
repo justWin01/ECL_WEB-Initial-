@@ -7,7 +7,6 @@
 
 ![Status](https://img.shields.io/badge/Status-Initial%20Design-blue)
 ![Type](https://img.shields.io/badge/System-Web--Based-green)
-![Database](https://img.shields.io/badge/Database-MySQL-orange)
 ![Version](https://img.shields.io/badge/Version-Prototype-lightgrey)
 
 </div>
