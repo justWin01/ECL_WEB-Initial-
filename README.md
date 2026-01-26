@@ -3,7 +3,7 @@
 # 🖥️ Integrated Service Request, Inventory & Payment Transaction System  
 ### **ECL-Micro Network & Data Solutions**
 
-> A centralized web-based system for managing service requests, inventory, and client payments
+ A centralized web-based system for managing service requests, inventory, and client payments
 
 ![Status](https://img.shields.io/badge/Status-Initial%20Design-blue)
 ![Type](https://img.shields.io/badge/System-Web--Based-green)
