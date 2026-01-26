@@ -16,7 +16,7 @@
 ## 📌 Overview
 
 The **Integrated Service Request, Inventory, and Client Payment Transaction System** is a web-based solution developed for **ECL-Micro Network & Data Solutions**.  
-It replaces **manual, paper-based, and face-to-face workflows** with a **centralized digital platform** that improves efficiency, accuracy, and record management.
+It replaces **manual, paper-based, and face-to-face other workflows** with a **centralized digital platform** that improves efficiency, accuracy, and record management.
 
 This repository represents the **initial system design and prototype** for academic and organizational planning purposes.
 
