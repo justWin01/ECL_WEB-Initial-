@@ -13,7 +13,7 @@
 
 ---
 
-## 📌 Overview
+##  Overview
 
 The **Integrated Service Request, Inventory, and Client Payment Transaction System** is a web-based solution developed for **ECL-Micro Network & Data Solutions**.  
 It replaces **manual, paper-based, and face-to-face other workflows** with a **centralized digital platform** that improves efficiency, accuracy, and record management.
@@ -22,7 +22,7 @@ This repository represents the **initial system design and prototype** for acade
 
 ---
 
-## 🎯 Objectives
+##  Objectives
 
 ### General Objective
 To develop an integrated web-based system that automates service requests, inventory tracking, and client payment transactions.
@@ -36,7 +36,7 @@ To develop an integrated web-based system that automates service requests, inven
 
 ---
 
-## 🧩 System Scope
+##  System Scope
 
 This system is intended **exclusively for internal use**.
 
@@ -49,7 +49,7 @@ This system is intended **exclusively for internal use**.
 
 ---
 
-## ⚠️ Limitations
+##  Limitations
 
 - Single-branch support only  
 - No mobile application  
@@ -59,7 +59,7 @@ This system is intended **exclusively for internal use**.
 
 ---
 
-## 👥 User Roles
+##  User Roles
 
 | Role | Description |
 |-----|------------|
