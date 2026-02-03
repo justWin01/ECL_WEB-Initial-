@@ -59,15 +59,6 @@ This system is intended **exclusively for internal use**.
 
 ---
 
-##  User Roles
-
-| Role | Description |
-|-----|------------|
-| **Admin** | Manages inventory, users, payments, and reports |
-| **Staff / Technician** | Handles and updates service requests |
-| **Client** | Submits service requests and tracks progress |
-
----
 
 ##  Key Features
 
