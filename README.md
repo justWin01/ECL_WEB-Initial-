@@ -78,21 +78,7 @@ Styling: CSS | Tailwind CSS | Bootstrap
 Version Control: Git & GitHub
 
 
----
 
-## 7. Technology Stack
-
-In initial frontend we use this following:
--Html for structure
--Css for design
--JavaScript for interactive
-
-In final web tech is this following:
-- **Frontend:** Angular , laravel or react native (depending)  
-- **Backend:** Python (Flask other ) or PHP (depending on version used)  
-- **Database:** MySQL / MariaDB  
-- **Styling:** CSS, Tailwind (optional), Bootstrap (optional)  
-- **Version Control:** Git / GitHub
 
 
 ## 8. Company Background: ECL-Micro Network & Data Solutions
