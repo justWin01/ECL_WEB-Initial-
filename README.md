@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🖥️ Integrated Service Request, Inventory & Payment Transaction System  
+#  Integrated Service Request, Inventory & Payment Transaction System  
 ### **ECL-Micro Network & Data Solutions**
 
  A centralized web-based system for managing service requests, inventory, and client payments
