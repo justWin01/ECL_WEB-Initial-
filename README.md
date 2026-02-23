@@ -6,7 +6,7 @@
  A centralized web-based system for managing service requests, inventory, and client payments
 
 ![Status](https://img.shields.io/badge/Status-Initial%20Design-blue)
-![Type](https://img.shields.io/badge/System-Web--Based-green)
+![Type](https://img.shields.io/badge/System-Web--Based-black)
 ![Version](https://img.shields.io/badge/Version-Prototype-lightgrey)
 
 </div>
